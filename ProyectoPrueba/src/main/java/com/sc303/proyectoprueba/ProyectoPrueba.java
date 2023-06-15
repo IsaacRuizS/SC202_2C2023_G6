@@ -40,8 +40,8 @@ public class ProyectoPrueba {
     }
     
     public static void option1(){
-        JOptionPane.showMessageDialog(null, "it Works");
         Medico.prueba1();
+        Calendario.mostrarCalendario();
     }
     
     public static void option2(){
