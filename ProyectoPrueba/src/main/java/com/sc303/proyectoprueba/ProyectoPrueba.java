@@ -26,14 +26,22 @@ public class ProyectoPrueba {
         }else{
             int integerOption = Integer.parseInt(option);
             if(integerOption == 1 || integerOption == 2 || integerOption == 0){
-                switch(integerOption){
-                    case 1 -> option1();            
-                    case 2 -> option2();                      
-                    case 3 -> option2();            
-                    case 4 -> option2();            
-                    case 5 -> option2();            
-                    case 0 -> JOptionPane.showMessageDialog(null, "¡Hasta luego!");
-                    default -> JOptionPane.showMessageDialog(null, "¡Hasta luego!");
+               switch (integerOption) {
+                    case 1:
+                        option1();
+                        break;
+                    case 2:
+                    case 3:
+                    case 4:
+                    case 5:
+                        option2();
+                        break;
+                    case 0:
+                        JOptionPane.showMessageDialog(null, "¡Hasta luego!");
+                        break;
+                    default:
+                        JOptionPane.showMessageDialog(null, "¡Hasta luego!");
+                        break;
                 }
             }
         }
