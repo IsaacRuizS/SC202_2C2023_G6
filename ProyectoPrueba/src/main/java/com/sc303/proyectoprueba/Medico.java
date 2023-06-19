@@ -7,17 +7,17 @@ import javax.swing.JOptionPane;
 
 public class Medico {
     //atributos
-    public String idMedico;    
+    public int idMedico;    
     public String nombre;
     public String especialidad;
     public LocalTime horaAlmuerzo;
     public boolean estado;
 
-    public String getIdMedico() {
+    public int getIdMedico() {
         return idMedico;
     }
 
-    public void setIdMedico(String idMedico) {
+    public void setIdMedico(int idMedico) {
         this.idMedico = idMedico;
     }
 
@@ -52,12 +52,8 @@ public class Medico {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-    
+  
     //Metodos
-    public static void prueba1(){
-        JOptionPane.showMessageDialog(null, "¡Hasta luego!");
-    }
-    
     public static void crearMedico(){
         
     }

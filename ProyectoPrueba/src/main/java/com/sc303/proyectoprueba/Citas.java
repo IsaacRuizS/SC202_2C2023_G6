@@ -13,6 +13,7 @@ public class Citas {
     public int idMedico;
     public double cobro;
     public boolean estado;
+    
 
     //getters and setters 
     public LocalTime getCantidadHoras() {
@@ -88,15 +89,16 @@ public class Citas {
     }
     
     //metodos
-    public static void crearCita(){
+    public static void reservarCita(){
+        JOptionPane.showMessageDialog(null, "¡LLego!");
     }
-    public static void eliminarCita(){
-    }
-    public static void actualizarCita(){
+    public static void devolucionCita(){
     }
     public static void mostrarCita(){
     }
-    public static void mostrarEspacioCitaCita(){
+    public static void mostrarEspacioCita(){
+    }
+    public static void actualizarCita(){
     }
     
 }
