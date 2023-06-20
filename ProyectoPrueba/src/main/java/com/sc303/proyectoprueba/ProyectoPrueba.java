@@ -71,6 +71,14 @@ public class ProyectoPrueba {
     
     public static void administrarMedicos(){
         // creen el mensaje a mostrar
+        String menuMessage="Bienvenido al Menu de opciones\n";
+        menuMessage+="1. Administrar Medico\n";
+        menuMessage+="2. Reservacion de espacio\n";        
+        menuMessage+="3. Devolucion de espacio\n";        
+        menuMessage+="4. Revision de agenda\n";                
+        menuMessage+="5. Mostrar Reservaciones\n";        
+        menuMessage+="0. Salir \n";
+        String option = JOptionPane.showInputDialog(null, menuMessage);
         // soliciten una de esas opciones
         // validen esa opcion 
         // llame a las Acciones del medico **HECHA
