@@ -80,8 +80,19 @@ public class ProyectoPrueba {
         menuMessage+="0. Salir \n";
         String option = JOptionPane.showInputDialog(null, menuMessage);
         // soliciten una de esas opciones
+        if(option == null){
+            JOptionPane.showMessageDialog(null, "¡Hasta luego!");
+        }else if(option.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Selecciona una opcion valida");
+            menuSelection();
+        }else{
+            int integerOption = Integer.parseInt(option);
+            // validar que el input traiga un valor entre 1,2,3,4,5 o 0
+            if(integerOption == 1 || integerOption == 2 || integerOption == 3 || integerOption == 4||integerOption == 5 || integerOption == 0){
+               switch (integerOption) {
+               }
         // validen esa opcion 
-        // llame a las Acciones del medico **HECHA
+       
         int opcionSeleccionada = 1;
         switch (opcionSeleccionada) {
                    case 1:
