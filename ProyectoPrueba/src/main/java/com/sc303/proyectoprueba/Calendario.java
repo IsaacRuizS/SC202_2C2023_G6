@@ -15,7 +15,7 @@ public class Calendario {
         int[] daysPerMonth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
         
         //solicitar el mes a consultar
-        int month = 5; 
+        int month = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese un numero de mes"));
 //1,5,7
 
         
@@ -27,15 +27,15 @@ public class Calendario {
         String[][] calendario = new String[6][7];
 
         // Rellena la matriz con los días del mes
-        int day = 1;
+        int day = 01;
         for (int week = 0; week < 6; week++) {
             for (int days = 0; days < 7; days++) {
                 //valida si esta en la primera semana y la posicion del dia, si el dia es menor a la primer dia obtenido en obtenerDiaSemana entonces devolvera un espacio en blaco
                 if (week == 0 && days < obtenerDiaSemana(month, 1)) {
-                    calendario[week][days] = " ";
+                    calendario[week][days] = "---";
                 } else if (day > daysInMonth) {
                     //si el dia es mayor a los dias en el mes entonces tambien escribira espacios en blanco
-                    calendario[week][days] = " ";
+                    calendario[week][days] = "---";
                 } else {
                     //si no agrega los dias dentreo del arreglo en la posicion de la semana en dia.
                     calendario[week][days] = String.valueOf(day);
@@ -47,16 +47,17 @@ public class Calendario {
         // Crea el contenido del calendario con formato de tabla
         StringBuilder calendarioTable = new StringBuilder();
         calendarioTable.append(String.format("   %s %d\n", monthName, 2023));
-        calendarioTable.append("  D    L    M    M    J    V    S   \n");
+        calendarioTable.append(String.format("%8s %8s %8s %8s %8s %8s %8s \n", "DOM","LUN","MAR","MIE","JUE","VIE","SAB"));
+
 
         for (int week = 0; week < 6; week++) {
             for (int days = 0; days < 7; days++) {
-                if (week == 1) {
-                    calendarioTable.append(String.format(" %3s ", calendario[week][days]));
-                } else if (week == 0) {
-                    calendarioTable.append(String.format(" %4s ", calendario[week][days]));
-                } else {
-                    calendarioTable.append(String.format(" %2s ", calendario[week][days]));
+                if(calendario[week][days].length() == 1 && !"---".equals(calendario[week][days])){
+                    calendarioTable.append(String.format(" %-10s ", "0"+calendario[week][days]));
+                }else if("---".equals(calendario[week][days])){
+                    calendarioTable.append(String.format(" %-12s ", calendario[week][days]));
+                }else{
+                    calendarioTable.append(String.format(" %-10s ", calendario[week][days]));
                 }
             }
                     calendarioTable.append("\n");

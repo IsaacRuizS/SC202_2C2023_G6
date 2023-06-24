@@ -5,15 +5,15 @@ import javax.swing.JOptionPane;
 
 public class Citas {
     //atributos
-    public LocalTime cantidadHoras;
-    public String nombreCliente;
-    public String telefonoCliente;
-    public LocalTime dia;
-    public String servicio;
-    public LocalTime horas;
-    public int idMedico;
-    public double cobro;
-    public boolean estado;
+    private LocalTime cantidadHoras;
+    private String nombreCliente;
+    private String telefonoCliente;
+    private LocalTime dia;
+    private String servicio;
+    private LocalTime horas;
+    private int idMedico;
+    private double cobro;
+    private boolean estado;
     
 
     //getters and setters 
@@ -91,7 +91,6 @@ public class Citas {
     
     //metodos
     public static void reservarCita(){
-        JOptionPane.showMessageDialog(null, "¡LLego!");
     }
     public static void devolucionCita(){
     }

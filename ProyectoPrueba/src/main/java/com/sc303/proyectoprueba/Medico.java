@@ -7,11 +7,11 @@ import javax.swing.JOptionPane;
 
 public class Medico {
     //atributos
-    public int idMedico;    
-    public String nombre;
-    public String especialidad;
-    public LocalTime horaAlmuerzo;
-    public boolean estado;
+    private int idMedico;    
+    private String nombre;
+    private String especialidad;
+    private LocalTime horaAlmuerzo;
+    private boolean estado;
 
     public int getIdMedico() {
         return idMedico;
