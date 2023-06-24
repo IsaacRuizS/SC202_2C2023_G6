@@ -14,8 +14,22 @@ public class Citas {
     private int idMedico;
     private double cobro;
     private boolean estado;
-    
 
+    public Citas(LocalTime cantidadHoras, String nombreCliente, String telefonoCliente, LocalTime dia, String servicio, LocalTime horas, int idMedico, double cobro, boolean estado) {
+        this.cantidadHoras = cantidadHoras;
+        this.nombreCliente = nombreCliente;
+        this.telefonoCliente = telefonoCliente;
+        this.dia = dia;
+        this.servicio = servicio;
+        this.horas = horas;
+        this.idMedico = idMedico;
+        this.cobro = cobro;
+        this.estado = estado;
+    }
+
+    public Citas() {
+    }
+    
     //getters and setters 
     public LocalTime getCantidadHoras() {
         return cantidadHoras;
