@@ -37,7 +37,7 @@ public class ProyectoPrueba {
             if(integerOption == 1 || integerOption == 2 || integerOption == 3 || integerOption == 4||integerOption == 5 || integerOption == 0){
                switch (integerOption) {
                    case 1:
-                        //Administrar Medicos
+                        
                         administrarMedicos();
                         break;
                     case 2:
@@ -53,7 +53,7 @@ public class ProyectoPrueba {
                         break;
                     case 5:
                         //Mostrar Reservaciones
-                        option2();
+                        
                         break;
                     case 0:
                         JOptionPane.showMessageDialog(null, "¡Hasta luego!");
@@ -91,10 +91,11 @@ public class ProyectoPrueba {
             if(integerOption == 1 || integerOption == 2 || integerOption == 3 || integerOption == 4||integerOption == 5 || integerOption == 0){
                switch (integerOption) {
                }
-        // validen esa opcion 
-       
-        int opcionSeleccionada = 1;
-        switch (opcionSeleccionada) {
+        int opcionSelecionada = 0;
+        opcionSelecionada = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la opcion"));
+            
+            
+        switch (opcionSelecionada) {
                    case 1:
                        //crearMedico
                        Medico.crearMedico();
@@ -121,9 +122,9 @@ public class ProyectoPrueba {
                         break;
                 }
     }
-    
-    public static void option2(){
-        JOptionPane.showMessageDialog(null, "it Works2");
-        menuSelection();    
+     }
     }
-}
+    }
+        
+            
+    
