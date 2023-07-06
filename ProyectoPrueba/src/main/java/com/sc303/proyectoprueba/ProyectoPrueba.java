@@ -33,7 +33,7 @@ public class ProyectoPrueba {
                    case 1:
                         //Administrar Medicos
                         //administrarMedicos();
-                       Calendario.mostrarCalendario();
+                        administrarMedicos();
                         break;
                     case 2:
                         Citas.reservarCita();
@@ -66,11 +66,27 @@ public class ProyectoPrueba {
     
     public static void administrarMedicos(){
         // creen el mensaje a mostrar
+        String menuMessage="Menu Medicos \n";
+        menuMessage+="1. Crear Medico\n";
+        menuMessage+="2. Mostrar Medico\n";        
+        menuMessage+="3. Eliminar Medico\n";        
+        menuMessage+="4. Actualizar medico\n"; 
+        menuMessage+="5. Volver a Menu principal\n"; 
+        menuMessage+="0. Salir \n";
+        
         // soliciten una de esas opciones
-        // validen esa opcion 
+        String option = JOptionPane.showInputDialog(null, menuMessage);
+        if(option == null){
+            JOptionPane.showMessageDialog(null, "¡Hasta luego!");
+        }else if(option.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Selecciona una opcion valida");
+            administrarMedicos();
+        }else{
+            int integerOption = Integer.parseInt(option);
+            // validen esa opcion 
+           if(integerOption == 1 || integerOption == 2 || integerOption == 3 || integerOption == 4|| integerOption == 5||integerOption == 0){ 
         // llame a las Acciones del medico **HECHA
-        int opcionSeleccionada = 1;
-        switch (opcionSeleccionada) {
+        switch (integerOption) {
                    case 1:
                        //crearMedico
                        Medico.crearMedico();
@@ -89,6 +105,9 @@ public class ProyectoPrueba {
                         //actualizar medico
                        Medico.actualizarMedico();
                         break;
+                    case 5: 
+                        menuSelection();
+                        break;
                     case 0:
                         JOptionPane.showMessageDialog(null, "¡Hasta luego!");
                         break;
@@ -96,7 +115,10 @@ public class ProyectoPrueba {
                         JOptionPane.showMessageDialog(null, "¡Hasta luego!");
                         break;
                 }
-    }
+
+           }
+        }
+            }
     
     public static void option2(){
         JOptionPane.showMessageDialog(null, "it Works2");

@@ -1,7 +1,6 @@
 
 package com.sc303.proyectoprueba;
 
-import java.time.LocalTime;
 import javax.swing.JOptionPane;
 
 
@@ -66,27 +65,29 @@ public class Medico {
   
     //Metodos
     public static void crearMedico(){
+        JOptionPane.showMessageDialog(null, "Crear Medico");
         //arreglo a almacenar medicos 
         //Solicitar Datos del medito
-        String nombreMedico = JOptionPane.showInputDialog(null, "Ingrese el nombre del medico: ");
-        String nombreEspecialidad = JOptionPane.showInputDialog(null, "Ingrese el nombre del medico: ");
-        int horAlmuerzo = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el nombre del medico: "));
-        
-        
-
-        
         // instanciar el objeto
         // settear valores
         // agregar al arreglo de objetos 
         
     }
     public static void eliminarMedico(){
-    
+        JOptionPane.showMessageDialog(null, "Eliminar Medico");
+        ProyectoPrueba.administrarMedicos();
+
     }
     public static void actualizarMedico(){
-    
+        JOptionPane.showMessageDialog(null, "Actualizar Medico");
+        ProyectoPrueba.administrarMedicos();
     }
     public static void mostrarMedico(){
-    
+        JOptionPane.showMessageDialog(null, "Mostrar Medico");
+        ProyectoPrueba.administrarMedicos();
+                         
+   
+   
+   
     }
 }
