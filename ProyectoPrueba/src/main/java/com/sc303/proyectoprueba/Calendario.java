@@ -7,17 +7,25 @@ import javax.swing.JOptionPane;
 
 
 public class Calendario {
- public static void mostrarCalendario() {
+ public static int[] mostrarCalendario() {
         //Meses
         String[] months = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
                           "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};    
         //Ultimo dia de cada mes del 2023
         int[] daysPerMonth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
         
-        //solicitar el mes a consultar
-        int month = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese un numero de mes"));
-//1,5,7
-
+        String seleccion = (String) JOptionPane.showInputDialog(null, "Selecciona una opción", "Menú desplegable",
+                JOptionPane.QUESTION_MESSAGE, null, months, months[0]);
+        
+        // Obtener la posición del mes seleccionado
+        int month = -1;
+        for (int i = 0; i < months.length; i++) {
+            if (months[i].equals(seleccion)) {
+                month = i;
+                break;
+            }
+        }
+        month += 1;
         
         // asignar el mes a mostrar y los dias
         String monthName =  months[month - 1];
@@ -63,10 +71,20 @@ public class Calendario {
                     calendarioTable.append("\n");
         }
 
-
-
         // Muestra el calendario en un cuadro de diálogo
-        JOptionPane.showMessageDialog(null, calendarioTable.toString());
+        int dia = Integer.parseInt(JOptionPane.showInputDialog(null, calendarioTable.toString()));
+        //validar con dias
+        // Horas disponibles
+        var horas = new Integer[]{8, 9, 10, 11, 12, 13, 14, 15, 16, 17};  
+        
+        // Mostrar el menú desplegable y obtener la selección del usuario
+        Integer horaSeleccionada = (Integer) JOptionPane.showInputDialog(null, "Selecciona una hora", "Menú desplegable", 
+                JOptionPane.QUESTION_MESSAGE, null, horas, horas[0]);
+        
+        
+        int[] diaYHoraCita = {dia, horaSeleccionada};
+        return diaYHoraCita;
+
     }
  
 

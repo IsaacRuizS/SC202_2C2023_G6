@@ -1,7 +1,6 @@
 
 package com.sc303.proyectoprueba;
 
-import java.time.LocalTime;
 import javax.swing.JOptionPane;
 
 

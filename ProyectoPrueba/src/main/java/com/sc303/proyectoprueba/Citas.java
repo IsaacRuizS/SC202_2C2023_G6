@@ -105,6 +105,11 @@ public class Citas {
     
     //metodos
     public static void reservarCita(){
+        int[] diaYHoraCita = Calendario.mostrarCalendario();
+        int diaSeleccionado = diaYHoraCita[0];
+        int horaSeleccionada = diaYHoraCita[1];
+        JOptionPane.showMessageDialog(null, "Dia: " + diaSeleccionado + "\nHora: " + horaSeleccionada);
+        
     }
     public static void devolucionCita(){
     }
