@@ -10,11 +10,6 @@ public class ProyectoPrueba {
     }
     
     public static void menuSelection(){
-        try{
-        
-        } catch (Exception e) {
-        
-        }
         // meter el codigo en try y hacer catch 
         // llamar a los metodos de citas en cada uno de los case y crear case 6 para actualizar citas 
         String menuMessage="Bienvenido al Menu de opciones\n";
@@ -25,7 +20,6 @@ public class ProyectoPrueba {
         menuMessage+="5. Mostrar Reservaciones\n";        
         menuMessage+="0. Salir \n";
         String option = JOptionPane.showInputDialog(null, menuMessage);
-        
         if(option == null){
             JOptionPane.showMessageDialog(null, "¡Hasta luego!");
         }else if(option.isEmpty()){
@@ -38,7 +32,8 @@ public class ProyectoPrueba {
                switch (integerOption) {
                    case 1:
                         //Administrar Medicos
-                        administrarMedicos();
+                        //administrarMedicos();
+                       Calendario.mostrarCalendario();
                         break;
                     case 2:
                         Citas.reservarCita();

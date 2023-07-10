@@ -1,20 +1,35 @@
 package com.sc303.proyectoprueba;
 
 import java.time.LocalTime;
+import javax.swing.JOptionPane;
 
 public class Citas {
     //atributos
-    public LocalTime cantidadHoras;
-    public String nombreCliente;
-    public String telefonoCliente;
-    public LocalTime dia;
-    public String servicio;
-    public LocalTime horas;
-    public int idMedico;
-    public double cobro;
-    public boolean estado;
-    
+    private LocalTime cantidadHoras;
+    private String nombreCliente;
+    private String telefonoCliente;
+    private LocalTime dia;
+    private String servicio;
+    private LocalTime horas;
+    private int idMedico;
+    private double cobro;
+    private boolean estado;
 
+    public Citas(LocalTime cantidadHoras, String nombreCliente, String telefonoCliente, LocalTime dia, String servicio, LocalTime horas, int idMedico, double cobro, boolean estado) {
+        this.cantidadHoras = cantidadHoras;
+        this.nombreCliente = nombreCliente;
+        this.telefonoCliente = telefonoCliente;
+        this.dia = dia;
+        this.servicio = servicio;
+        this.horas = horas;
+        this.idMedico = idMedico;
+        this.cobro = cobro;
+        this.estado = estado;
+    }
+
+    public Citas() {
+    }
+    
     //getters and setters 
     public LocalTime getCantidadHoras() {
         return cantidadHoras;
@@ -90,7 +105,11 @@ public class Citas {
     
     //metodos
     public static void reservarCita(){
-        JOptionPane.showMessageDialog(null, "¡LLego!");
+        int[] diaYHoraCita = Calendario.mostrarCalendario();
+        int diaSeleccionado = diaYHoraCita[0];
+        int horaSeleccionada = diaYHoraCita[1];
+        JOptionPane.showMessageDialog(null, "Dia: " + diaSeleccionado + "\nHora: " + horaSeleccionada);
+        
     }
     public static void devolucionCita(){
     }
