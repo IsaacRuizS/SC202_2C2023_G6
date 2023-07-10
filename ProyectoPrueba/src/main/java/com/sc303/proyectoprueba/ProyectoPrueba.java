@@ -4,6 +4,9 @@ import javax.swing.JOptionPane;
 
 
 public class ProyectoPrueba {
+    
+    static Citas[] citasArray = new Citas[5];
+
 
     public static void main(String[] args) {
         menuSelection();
@@ -37,7 +40,7 @@ public class ProyectoPrueba {
                             administrarMedicos();
                             break;
                         case 2:
-                            Citas.reservarCita();
+                            Citas.reservarCita(citasArray);
                             //resercaciones de Espacio
                             break;
                         case 3:
@@ -49,7 +52,7 @@ public class ProyectoPrueba {
                             break;
                         case 5:
                             //Mostrar Reservaciones
-                            option2();
+                            Citas.mostrarCitas(citasArray);
                             break;
                         case 0:
                             JOptionPane.showMessageDialog(null, "¡Hasta luego!");
@@ -72,6 +75,7 @@ public class ProyectoPrueba {
     }
     
     public static void administrarMedicos(){
+        Medico[] medicosArray = new Medico[5];
         // creen el mensaje a mostrar
         String menuMessage="Menu Medicos \n";
         menuMessage+="1. Crear Medico\n";
