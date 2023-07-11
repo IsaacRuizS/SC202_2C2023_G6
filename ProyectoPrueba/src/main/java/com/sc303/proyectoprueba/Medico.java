@@ -82,12 +82,19 @@ public class Medico {
         JOptionPane.showMessageDialog(null, "Actualizar Medico");
         ProyectoPrueba.administrarMedicos();
     }
-    public static void mostrarMedico(){
-        JOptionPane.showMessageDialog(null, "Mostrar Medico");
-        ProyectoPrueba.administrarMedicos();
-                         
-   
-   
-   
+    public static void MostrarMedicos(Medico[]medicoArray){
+        StringBuilder medicoText = new StringBuilder();
+        for ( Medico medico: medicoArray) {
+            if ( medico != null) {
+                medicoText.append(":Nombre ").append(medico.getNombre()).append("\n");
+                medicoText.append("Especialidad: ").append(medico.getEspecialidad()).append("\n");
+                medicoText.append("Hora de Almuerzo: ").append(medico.getHoraAlmuerzo()).append("\n");
+                medicoText.append("Estado: ").append(medico.isEstado() ? "Activa" : "Cancelada").append("\n");
+                medicoText.append("----------------------------------------\n");
+   }
+        }
+        if (medicoText.length() == 0) {
+            medicoText.append("No hay medico registrado.");
+        }
     }
 }

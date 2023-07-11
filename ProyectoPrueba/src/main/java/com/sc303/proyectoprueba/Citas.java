@@ -136,6 +136,7 @@ public class Citas {
             JOptionPane.showMessageDialog(null, "Opción inválida");
             return; // Salir del método si la opción es inválida
         }
+        
 
         nuevaCita.setCantidadHoras(duracion);
 
@@ -192,9 +193,9 @@ public class Citas {
                 citasText.append("Cobro: ").append(cita.getCobro()).append("\n");
                 citasText.append("Estado: ").append(cita.isEstado() ? "Activa" : "Cancelada").append("\n");
                 citasText.append("----------------------------------------\n");
+                
             }
         }
-
         if (citasText.length() == 0) {
             citasText.append("No hay citas registradas.");
         }
