@@ -23,6 +23,7 @@ public class Medico {
     public Medico() {
     }
     
+    
     public int getIdMedico() {
         return idMedico;
     }
@@ -82,11 +83,12 @@ public class Medico {
         JOptionPane.showMessageDialog(null, "Actualizar Medico");
         ProyectoPrueba.administrarMedicos();
     }
-    public static void MostrarMedicos(Medico[]medicoArray){
+    public static void mostrarMedico(Medico[]medicoArray){
         StringBuilder medicoText = new StringBuilder();
         for ( Medico medico: medicoArray) {
             if ( medico != null) {
-                medicoText.append(":Nombre ").append(medico.getNombre()).append("\n");
+                medicoText.append("Id: ").append(medico.getIdMedico()).append("\n");
+                medicoText.append("Nombre: ").append(medico.getNombre()).append("\n");
                 medicoText.append("Especialidad: ").append(medico.getEspecialidad()).append("\n");
                 medicoText.append("Hora de Almuerzo: ").append(medico.getHoraAlmuerzo()).append("\n");
                 medicoText.append("Estado: ").append(medico.isEstado() ? "Activa" : "Cancelada").append("\n");
@@ -96,5 +98,7 @@ public class Medico {
         if (medicoText.length() == 0) {
             medicoText.append("No hay medico registrado.");
         }
+        JOptionPane.showMessageDialog(null, medicoText);
+        ProyectoPrueba.menuSelection();
     }
 }

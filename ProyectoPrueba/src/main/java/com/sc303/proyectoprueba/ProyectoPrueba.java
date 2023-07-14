@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 public class ProyectoPrueba {
     
     static Citas[] citasArray = new Citas[5];
+    static Medico[] medicosArray = new Medico[5];
 
 
     public static void main(String[] args) {
@@ -75,7 +76,6 @@ public class ProyectoPrueba {
     }
     
     public static void administrarMedicos(){
-        Medico[] medicosArray = new Medico[5];
         // creen el mensaje a mostrar
         String menuMessage="Menu Medicos \n";
         menuMessage+="1. Crear Medico\n";
@@ -104,7 +104,7 @@ public class ProyectoPrueba {
                         break;
                     case 2:
                         //mostrar Medico
-                       Medico.mostrarMedico();
+                       Medico.mostrarMedico(medicosArray );
                         break;
 
                     case 3:

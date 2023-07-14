@@ -137,6 +137,10 @@ public class Citas {
             return; // Salir del método si la opción es inválida
         }
         
+        // Mostrar los mnedicos que tengan relacion con el servicio/especialidad y que el usuario seleccione el id del medico a reservar
+        //recorrer el arreglo de medico validar que la especialidad sea igual al servicioSeleccionado = a la especialidad
+        //Solicitar al usuario ingresar el id del medico
+        //Validar el horario del medico 
 
         nuevaCita.setCantidadHoras(duracion);
 
