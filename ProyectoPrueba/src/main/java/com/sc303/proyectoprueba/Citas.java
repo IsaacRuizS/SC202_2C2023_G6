@@ -103,7 +103,7 @@ public class Citas {
     }
     
     //metodos
-    public static void reservarCita(Citas[] citasArray) {
+    public static void reservarCita(Citas[] citasArray, Medico[] medicosArray) {
         int[] diaYHoraCita = Calendario.mostrarCalendario();
         int diaSeleccionado = diaYHoraCita[0];
         int horaSeleccionada = diaYHoraCita[1];
@@ -136,9 +136,16 @@ public class Citas {
             JOptionPane.showMessageDialog(null, "Opción inválida");
             return; // Salir del método si la opción es inválida
         }
-        
+     
         // Mostrar los mnedicos que tengan relacion con el servicio/especialidad y que el usuario seleccione el id del medico a reservar
+        
+        Medico.medicoEspecialidad(medicosArray, servicioSeleccionado);
+        
         //recorrer el arreglo de medico validar que la especialidad sea igual al servicioSeleccionado = a la especialidad
+        
+        
+        
+        // Llenar el nuevo arreglo con los médicos que tienen la especialidad de
         //Solicitar al usuario ingresar el id del medico
         //Validar el horario del medico 
 

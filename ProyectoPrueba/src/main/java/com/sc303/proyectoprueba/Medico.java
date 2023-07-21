@@ -101,4 +101,25 @@ public class Medico {
         JOptionPane.showMessageDialog(null, medicoText);
         ProyectoPrueba.menuSelection();
     }
+    public static void medicoEspecialidad(Medico[]medicoArray, String especialidad ){
+         StringBuilder medicoEspecialidad = new StringBuilder();
+        
+        //filtro de medico segun la especilidad que traemos por parametros 
+        
+        for ( Medico medico: medicoArray) {
+            if(medico != null && medico.getEspecialidad().equalsIgnoreCase(especialidad)) {
+                medicoEspecialidad.append("Id: ").append(medico.getIdMedico()).append("\n");
+                medicoEspecialidad.append("Nombre: ").append(medico.getNombre()).append("\n");
+                medicoEspecialidad.append("Especialidad: ").append(medico.getEspecialidad()).append("\n");
+                medicoEspecialidad.append("Hora de Almuerzo: ").append(medico.getHoraAlmuerzo()).append("\n");
+                medicoEspecialidad.append("Estado: ").append(medico.isEstado() ? "Activa" : "Cancelada").append("\n");
+                medicoEspecialidad.append("----------------------------------------\n");
+            }
+        }
+            if (medicoEspecialidad.length() == 0) {
+                medicoEspecialidad.append("No hay medico registrado.");
+            }
+        JOptionPane.showMessageDialog(null, medicoEspecialidad);
+    }
+
 }
