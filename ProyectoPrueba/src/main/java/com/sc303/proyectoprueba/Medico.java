@@ -101,25 +101,36 @@ public class Medico {
         JOptionPane.showMessageDialog(null, medicoText);
         ProyectoPrueba.menuSelection();
     }
-    public static void medicoEspecialidad(Medico[]medicoArray, String especialidad ){
+    
+    public static String medicoEspecialidad(Medico[]medicoArray, String especialidad ){
          StringBuilder medicoEspecialidad = new StringBuilder();
-        
+         Integer[] idsMedicosEspecialidadObject = new Integer[medicoArray.length];
         //filtro de medico segun la especilidad que traemos por parametros 
-        
+        int contador = 0;
         for ( Medico medico: medicoArray) {
             if(medico != null && medico.getEspecialidad().equalsIgnoreCase(especialidad)) {
+                idsMedicosEspecialidadObject[contador] = medico.getIdMedico();
+                contador++;
                 medicoEspecialidad.append("Id: ").append(medico.getIdMedico()).append("\n");
                 medicoEspecialidad.append("Nombre: ").append(medico.getNombre()).append("\n");
                 medicoEspecialidad.append("Especialidad: ").append(medico.getEspecialidad()).append("\n");
                 medicoEspecialidad.append("Hora de Almuerzo: ").append(medico.getHoraAlmuerzo()).append("\n");
                 medicoEspecialidad.append("Estado: ").append(medico.isEstado() ? "Activa" : "Cancelada").append("\n");
                 medicoEspecialidad.append("----------------------------------------\n");
+                
             }
         }
             if (medicoEspecialidad.length() == 0) {
                 medicoEspecialidad.append("No hay medico registrado.");
             }
-        JOptionPane.showMessageDialog(null, medicoEspecialidad);
+        //int idMedico = JOptionPane.showInputDialog(null, medicoEspecialidad);
+          String servicioSeleccionado = (String) JOptionPane.showInputDialog(null, medicoEspecialidad,
+                "Menú desplegable", JOptionPane.QUESTION_MESSAGE, null, idsMedicosEspecialidadObject, idsMedicosEspecialidadObject[0]);
+        //validar que no vaya vacio   
+              return servicioSeleccionado;
+          
+
+        
     }
 
 }

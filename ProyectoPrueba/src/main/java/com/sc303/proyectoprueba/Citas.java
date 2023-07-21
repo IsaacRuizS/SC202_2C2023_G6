@@ -138,12 +138,7 @@ public class Citas {
         }
      
         // Mostrar los mnedicos que tengan relacion con el servicio/especialidad y que el usuario seleccione el id del medico a reservar
-        
-        Medico.medicoEspecialidad(medicosArray, servicioSeleccionado);
-        
-        //recorrer el arreglo de medico validar que la especialidad sea igual al servicioSeleccionado = a la especialidad
-        
-        
+        String idMedico = Medico.medicoEspecialidad(medicosArray, servicioSeleccionado);
         
         // Llenar el nuevo arreglo con los médicos que tienen la especialidad de
         //Solicitar al usuario ingresar el id del medico
