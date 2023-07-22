@@ -84,17 +84,17 @@ public class ProyectoPrueba {
                         break;
                     case 2:
                         //mostrar Medico
-                       Medico.mostrarMedico();
+                       //Medico.mostrarMedico();
                         break;
 
                     case 3:
                         //eliminar Medico
-                       Medico.eliminarMedico();
+                       //Medico.eliminarMedico(medicosArray);
                         break;
 
                     case 4:
                         //actualizar medico
-                       Medico.actualizarMedico();
+                       //Medico.actualizarMedico(medicosArray);
                         break;
                     case 0:
                         JOptionPane.showMessageDialog(null, "¡Hasta luego!");
