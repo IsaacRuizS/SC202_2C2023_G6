@@ -68,8 +68,7 @@ public class Medico {
     public static Medico crearMedico() {
         Medico nuevoMedico = new Medico();
 
-        int idMedico = obtenerIdMedicoDesdeBaseDeDatos();
-        nuevoMedico.setIdMedico(idMedico);
+        //nuevoMedico.setIdMedico(idMedico);
 
         String nombreMedico = JOptionPane.showInputDialog(null, "Ingrese el nombre del médico:", "Crear médico",
                 JOptionPane.QUESTION_MESSAGE);
@@ -83,16 +82,13 @@ public class Medico {
         Integer[] horas = { 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 };
         Integer horaSeleccionada = (Integer) JOptionPane.showInputDialog(null, "Selecciona una hora de almuerzo para el médico:",
                 "Crear médico", JOptionPane.QUESTION_MESSAGE, null, horas, horas[0]);
-        nuevoMedico.setHoraAlmuerzo(LocalTime.of(horaSeleccionada, 0));
+        nuevoMedico.setHoraAlmuerzo(horaSeleccionada);
 
         nuevoMedico.setEstado(true);
 
         return nuevoMedico;
     }
-    public static int obtenerIdMedicoDesdeBaseDeDatos() {
-        
-        return 12345;
-    }
+    
     public static void eliminarMedico(Medico[] listaMedicos) {
         int idMedicoAEliminar=0;
         //pedir el idmedico aqui
@@ -118,8 +114,8 @@ public class Medico {
 
             Integer[] horas = { 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 };
             Integer horaSeleccionada = (Integer) JOptionPane.showInputDialog(null, "Selecciona una nueva hora de almuerzo para el médico:",
-                    "Actualizar médico", JOptionPane.QUESTION_MESSAGE, null, horas, medico.getHoraAlmuerzo().getHour());
-            medico.setHoraAlmuerzo(LocalTime.of(horaSeleccionada, 0));
+                   "Actualizar médico", JOptionPane.QUESTION_MESSAGE, null, horas, medico.getHoraAlmuerzo());
+            medico.setHoraAlmuerzo(horaSeleccionada);
 
             int opcionEstado = JOptionPane.showConfirmDialog(null, "¿Deseas cambiar el estado del médico?", "Actualizar médico", JOptionPane.YES_NO_OPTION);
             if (opcionEstado == JOptionPane.YES_OPTION) {
