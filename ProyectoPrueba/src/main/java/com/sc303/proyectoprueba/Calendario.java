@@ -82,7 +82,7 @@ public class Calendario {
                 JOptionPane.QUESTION_MESSAGE, null, horas, horas[0]);
         
         
-        int[] diaYHoraCita = {dia, horaSeleccionada};
+        int[] diaYHoraCita = {dia, horaSeleccionada, month};
         return diaYHoraCita;
 
     }
