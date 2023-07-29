@@ -198,7 +198,7 @@ public class Medico {
         JOptionPane.showMessageDialog(null, medicoText);
     }
     
-    public static String medicoEspecialidad(Medico[]medicoArray, String especialidad ){
+    public static int medicoEspecialidad(Medico[]medicoArray, String especialidad ){
          StringBuilder medicoEspecialidad = new StringBuilder();
          Integer[] idsMedicosEspecialidadObject = new Integer[medicoArray.length];
         //filtro de medico segun la especilidad que traemos por parametros 
@@ -220,9 +220,9 @@ public class Medico {
                 medicoEspecialidad.append("No hay medico registrado.");
             }
         //int idMedico = JOptionPane.showInputDialog(null, medicoEspecialidad);
-          String servicioSeleccionado = (String) JOptionPane.showInputDialog(null, medicoEspecialidad,
+          int idMedico = (int) JOptionPane.showInputDialog(null, medicoEspecialidad,
                 "Menú desplegable", JOptionPane.QUESTION_MESSAGE, null, idsMedicosEspecialidadObject, idsMedicosEspecialidadObject[0]);
         //validar que no vaya vacio   
-              return servicioSeleccionado;
+              return idMedico;
     }
 }

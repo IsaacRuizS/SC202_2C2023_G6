@@ -8,17 +8,20 @@ public class Citas {
     private String nombreCliente;
     private String telefonoCliente;
     private int dia;
+    private int mes;
     private String servicio;
     private int horas;
     private int idMedico;
     private double cobro;
     private boolean estado;
+    
 
-    public Citas(int cantidadHoras, String nombreCliente, String telefonoCliente, int dia, String servicio, int horas, int idMedico, double cobro, boolean estado) {
+    public Citas(int cantidadHoras, String nombreCliente, String telefonoCliente, int dia, int mes, String servicio, int horas, int idMedico, double cobro, boolean estado) {
         this.cantidadHoras = cantidadHoras;
         this.nombreCliente = nombreCliente;
         this.telefonoCliente = telefonoCliente;
         this.dia = dia;
+        this.mes = mes;
         this.servicio = servicio;
         this.horas = horas;
         this.idMedico = idMedico;
@@ -60,6 +63,14 @@ public class Citas {
 
     public void setDia(int dia) {
         this.dia = dia;
+    }
+
+    public int getMes() {
+        return mes;
+    }
+
+    public void setMes(int mes) {
+        this.mes = mes;
     }
 
     public String getServicio() {
@@ -104,14 +115,11 @@ public class Citas {
     
     //metodos
     public static void reservarCita(Citas[] citasArray, Medico[] medicosArray) {
-        int[] diaYHoraCita = Calendario.mostrarCalendario();
-        int diaSeleccionado = diaYHoraCita[0];
-        int horaSeleccionada = diaYHoraCita[1];
         
-         // Crear una nueva instancia de Citas y asignar los valores correspondientes
+        
+         // Crear una nueva instancia de Citas 
         Citas nuevaCita = new Citas();
-        nuevaCita.setDia(diaSeleccionado);
-        nuevaCita.setHoras(horaSeleccionada);
+        
 
 
         // Mostrar el menú desplegable y obtener la selección del usuario
@@ -138,12 +146,34 @@ public class Citas {
         }
      
         // Mostrar los mnedicos que tengan relacion con el servicio/especialidad y que el usuario seleccione el id del medico a reservar
-        String idMedico = Medico.medicoEspecialidad(medicosArray, servicioSeleccionado);
+        int idMedico = Medico.medicoEspecialidad(medicosArray, servicioSeleccionado);
         
-        // Llenar el nuevo arreglo con los médicos que tienen la especialidad de
-        //Solicitar al usuario ingresar el id del medico
+        //seleccionar el dia y la hora del calendario
+        int[] diaYHoraCita = Calendario.mostrarCalendario();
+        int diaSeleccionado = diaYHoraCita[0];
+        int horaSeleccionada = diaYHoraCita[1];
+        int mesSeleccionada = diaYHoraCita[2];
+        
         //Validar el horario del medico 
+        // de citasArray mostrar/validar los espacios disponibles  para que el cliente pueda seleccionar solo una hora disp
+        Citas[] citasFiltradas = filtrarCitasPorMedico(citasArray, idMedico);
+        String filtrarCitas="";
+        // Mostrar las citas filtradas
+        for (Citas cita : citasFiltradas) {
+            if (cita != null) {
+                filtrarCitas+=cita+"\n";        
+            }
+        }
+        //validar que la hora, dia y mes seleccionado esten libres 
+        //for para recorrer citas filtradas[i] y dentro de esefor un if que valide que el dia, mes y hora no esten seleccionadas
+        // el else de ese if necesita un mensaje de error y luego hacer esto idMedico = Medico.medicoEspecialidad(medicosArray, servicioSeleccionado)
+        
+        citasFiltradas[0].getMes();
 
+        
+        nuevaCita.setDia(diaSeleccionado);
+        nuevaCita.setMes(mesSeleccionada);
+        nuevaCita.setHoras(horaSeleccionada);
         nuevaCita.setCantidadHoras(duracion);
 
         // Solicitar nombre y teléfono del cliente
@@ -208,6 +238,17 @@ public class Citas {
 
         JOptionPane.showMessageDialog(null, citasText.toString());
         ProyectoPrueba.menuSelection();
+    }
+       // Método para filtrar citas por idMedico
+    public static Citas[] filtrarCitasPorMedico(Citas[] citas, int idMedico) {
+        Citas[] citasFiltradas = new Citas[citas.length];
+        int count = 0;
+        for (Citas cita : citas) {
+            if (cita.getIdMedico() == idMedico) {
+                citasFiltradas[count++] = cita;
+             }
+          }
+        return citasFiltradas;
     }
     
     public static void devolucionCita(){
