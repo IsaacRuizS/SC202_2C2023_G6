@@ -115,12 +115,8 @@ public class Citas {
     
     //metodos
     public static void reservarCita(Citas[] citasArray, Medico[] medicosArray) {
-        
-        
          // Crear una nueva instancia de Citas 
         Citas nuevaCita = new Citas();
-        
-
 
         // Mostrar el menú desplegable y obtener la selección del usuario
         String[] opcionesServicio = { "Medicina General", "Cirugía Ambulatoria", "Cirugía Especializada" };
@@ -156,19 +152,19 @@ public class Citas {
         
         //Validar el horario del medico 
         // de citasArray mostrar/validar los espacios disponibles  para que el cliente pueda seleccionar solo una hora disp
-        Citas[] citasFiltradas = filtrarCitasPorMedico(citasArray, idMedico);
+        /*Citas[] citasFiltradas = filtrarCitasPorMedico(citasArray, idMedico);
         String filtrarCitas="";
         // Mostrar las citas filtradas
         for (Citas cita : citasFiltradas) {
             if (cita != null) {
                 filtrarCitas+=cita+"\n";        
             }
-        }
+        }*/
         //validar que la hora, dia y mes seleccionado esten libres 
         //for para recorrer citas filtradas[i] y dentro de esefor un if que valide que el dia, mes y hora no esten seleccionadas
         // el else de ese if necesita un mensaje de error y luego hacer esto idMedico = Medico.medicoEspecialidad(medicosArray, servicioSeleccionado)
         
-        citasFiltradas[0].getMes();
+        //citasFiltradas[0].getMes();
 
         
         nuevaCita.setDia(diaSeleccionado);
@@ -210,9 +206,6 @@ public class Citas {
         ProyectoPrueba.menuSelection();
     }
 
-
-
-    
     public static void mostrarCitas(Citas[] citasArray) {
 
         StringBuilder citasText = new StringBuilder();
