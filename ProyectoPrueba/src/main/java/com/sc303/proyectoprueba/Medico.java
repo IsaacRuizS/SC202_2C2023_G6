@@ -67,8 +67,15 @@ public class Medico {
     //Metodos
     public static Medico crearMedico(Medico[] listaMedicos) {
         Medico nuevoMedico = new Medico();
+        int nuevoIdMedico = 0;
+        
+        for(int i = 0 ; i < listaMedicos.length; i++){
+            if(listaMedicos[i] == null){
+                nuevoIdMedico = i + 1;
+                break;
+            }
+        }
 
-        int nuevoIdMedico = listaMedicos.length;
         nuevoMedico.setIdMedico(nuevoIdMedico);
 
         String nombreMedico = JOptionPane.showInputDialog(null, "Ingrese el nombre del médico:", "Crear médico",
@@ -89,6 +96,15 @@ public class Medico {
         
         //agregar el nuevo medico dentro de lista medicos
         //llamar a proyectoprueba.administrarMedicos();
+        
+        for (int i = 0; i < listaMedicos.length; i++) {
+            if (listaMedicos[i] == null) {
+                listaMedicos[i] = nuevoMedico;
+                break;
+            }
+        }
+        JOptionPane.showMessageDialog(null, "Medico Agregado con éxito");
+        ProyectoPrueba.administrarMedicos();
         
         return nuevoMedico;
     }
@@ -113,14 +129,28 @@ public class Medico {
         } else {
             JOptionPane.showMessageDialog(null, "No se encontró ningún médico con el ID " + idMedicoAEliminar + ".", "Médico no encontrado", JOptionPane.ERROR_MESSAGE);
         }
-        //llamar al menu
+        ProyectoPrueba.administrarMedicos();
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(null, "El ID del médico debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
-         //llamar al menu
+        ProyectoPrueba.administrarMedicos();
     }
 }
 
-    public static void actualizarMedico(Medico medico) {
+    public static void actualizarMedico(Medico[] listaMedicos) {
+        Medico medico = new Medico();
+        
+        int idMedico = Integer.parseInt(JOptionPane.showInputDialog("Indique el numero de id del medico a actualizar "));
+        int contador = 6 ;
+        for(int i = 0; i < listaMedicos.length; i++){
+            JOptionPane.showMessageDialog(null, listaMedicos[i].getIdMedico());
+            if(listaMedicos[i].getIdMedico() == idMedico){
+                contador = i;
+                break;
+            }
+        }
+        String medicoViejo = "Nombre " + listaMedicos[contador].getNombre() + "\n Id "+ listaMedicos[contador].getIdMedico()+ "" + "\n Especialidad "+ listaMedicos[contador].getEspecialidad()+ ""  + "\n Hora Almuerzo "+ listaMedicos[contador].getHoraAlmuerzo()+ "";
+        JOptionPane.showMessageDialog(null, medicoViejo);
+        
         if (medico != null) {
             String[] opcionesEspecialidad = { "Medicina General", "Cirugía Ambulatoria", "Cirugía Especializada" };
 
@@ -136,13 +166,18 @@ public class Medico {
             Integer horaSeleccionada = (Integer) JOptionPane.showInputDialog(null, "Selecciona una nueva hora de almuerzo para el médico:",
                    "Actualizar médico", JOptionPane.QUESTION_MESSAGE, null, horas, medico.getHoraAlmuerzo());
             medico.setHoraAlmuerzo(horaSeleccionada);
-
-        
-            JOptionPane.showMessageDialog(null, "Médico actualizado exitosamente.", "Actualización exitosa", JOptionPane.INFORMATION_MESSAGE);
-            //llamar al menu
+            medico.setIdMedico(contador);
+            medico.setEstado(true);
+            if (contador != 6) {
+                listaMedicos[contador] = medico;
+                ProyectoPrueba.administrarMedicos();
+            }else{
+                JOptionPane.showMessageDialog(null, "Medico no encontrado");
+                ProyectoPrueba.administrarMedicos();
+            }
         } else {
             JOptionPane.showMessageDialog(null, "El médico no existe.", "Error", JOptionPane.ERROR_MESSAGE);
-                            //llamar al menu
+            ProyectoPrueba.administrarMedicos();
         }
     }
     public static void mostrarMedico(Medico[]medicoArray){

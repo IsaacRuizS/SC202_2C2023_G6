@@ -110,12 +110,12 @@ public class ProyectoPrueba {
 
                     case 3:
                         //eliminar Medico
-                       //Medico.eliminarMedico(medicosArray);
+                       Medico.eliminarMedico(medicosArray);
                         break;
 
                     case 4:
                         //actualizar medico
-                       //Medico.actualizarMedico(medicosArray);
+                       Medico.actualizarMedico(medicosArray);
                         break;
                     case 5: 
                         menuSelection();
