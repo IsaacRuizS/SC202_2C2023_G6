@@ -34,15 +34,6 @@ public class ProyectoPrueba {
             }else{
                 int integerOption = Integer.parseInt(option);
                 // array quemado
-                Medico medico1 = new Medico(0,"Isaac","Cirugía Ambulatoria",8,true);
-                Medico medico2 = new Medico(1,"Johan","Cirugía Especializada",8,true);
-                Medico medico3 = new Medico(3,"Celes","Medicina General",8,true);
-
-                medicosArray[0]=medico1;
-                medicosArray[1]=medico2;
-                medicosArray[2]=medico3;
-
-
                 // validar que el input traiga un valor entre 1,2,3,4,5 o 0
                 if(integerOption == 1 || integerOption == 2 || integerOption == 3 || integerOption == 4||integerOption == 5 || integerOption == 0){
                    switch (integerOption) {
@@ -110,7 +101,7 @@ public class ProyectoPrueba {
         switch (integerOption) {
                    case 1:
                        //crearMedico
-                       Medico.crearMedico();
+                       Medico.crearMedico(medicosArray);
                         break;
                     case 2:
                         //mostrar Medico

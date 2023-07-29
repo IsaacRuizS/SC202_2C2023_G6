@@ -65,10 +65,11 @@ public class Medico {
     }
   
     //Metodos
-    public static Medico crearMedico() {
+    public static Medico crearMedico(Medico[] listaMedicos) {
         Medico nuevoMedico = new Medico();
 
-        //nuevoMedico.setIdMedico(idMedico);
+        int nuevoIdMedico = listaMedicos.length;
+        nuevoMedico.setIdMedico(nuevoIdMedico);
 
         String nombreMedico = JOptionPane.showInputDialog(null, "Ingrese el nombre del médico:", "Crear médico",
                 JOptionPane.QUESTION_MESSAGE);
@@ -85,20 +86,39 @@ public class Medico {
         nuevoMedico.setHoraAlmuerzo(horaSeleccionada);
 
         nuevoMedico.setEstado(true);
-
+        
+        //agregar el nuevo medico dentro de lista medicos
+        //llamar a proyectoprueba.administrarMedicos();
+        
         return nuevoMedico;
     }
     
     public static void eliminarMedico(Medico[] listaMedicos) {
-        int idMedicoAEliminar=0;
-        //pedir el idmedico aqui
+    String idMedicoEliminar = JOptionPane.showInputDialog(null, "Ingrese el ID del médico que desea eliminar:", "Eliminar médico", JOptionPane.QUESTION_MESSAGE);
+
+    try {
+        int idMedicoAEliminar = Integer.parseInt(idMedicoEliminar);
+
+        boolean medicoEncontrado = false;
         for (int i = 0; i < listaMedicos.length; i++) {
             if (listaMedicos[i] != null && listaMedicos[i].getIdMedico() == idMedicoAEliminar) {
                 listaMedicos[i] = null;
-                break;        
-            }    
+                medicoEncontrado = true;
+                break;
+            }
         }
+
+        if (medicoEncontrado) {
+            JOptionPane.showMessageDialog(null, "El médico con ID " + idMedicoAEliminar + " ha sido eliminado.", "Médico eliminado", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontró ningún médico con el ID " + idMedicoAEliminar + ".", "Médico no encontrado", JOptionPane.ERROR_MESSAGE);
+        }
+        //llamar al menu
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "El ID del médico debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+         //llamar al menu
     }
+}
 
     public static void actualizarMedico(Medico medico) {
         if (medico != null) {
@@ -117,14 +137,12 @@ public class Medico {
                    "Actualizar médico", JOptionPane.QUESTION_MESSAGE, null, horas, medico.getHoraAlmuerzo());
             medico.setHoraAlmuerzo(horaSeleccionada);
 
-            int opcionEstado = JOptionPane.showConfirmDialog(null, "¿Deseas cambiar el estado del médico?", "Actualizar médico", JOptionPane.YES_NO_OPTION);
-            if (opcionEstado == JOptionPane.YES_OPTION) {
-                boolean nuevoEstado = !medico.isEstado();
-                medico.setEstado(nuevoEstado);
-            }
+        
             JOptionPane.showMessageDialog(null, "Médico actualizado exitosamente.", "Actualización exitosa", JOptionPane.INFORMATION_MESSAGE);
+            //llamar al menu
         } else {
             JOptionPane.showMessageDialog(null, "El médico no existe.", "Error", JOptionPane.ERROR_MESSAGE);
+                            //llamar al menu
         }
     }
     public static void mostrarMedico(Medico[]medicoArray){
