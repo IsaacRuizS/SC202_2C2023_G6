@@ -196,7 +196,6 @@ public class Medico {
             medicoText.append("No hay medico registrado.");
         }
         JOptionPane.showMessageDialog(null, medicoText);
-        ProyectoPrueba.menuSelection();
     }
     
     public static String medicoEspecialidad(Medico[]medicoArray, String especialidad ){

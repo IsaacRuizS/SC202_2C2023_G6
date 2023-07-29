@@ -105,17 +105,20 @@ public class ProyectoPrueba {
                         break;
                     case 2:
                         //mostrar Medico
-                       Medico.mostrarMedico(medicosArray );
+                        Medico.mostrarMedico(medicosArray );
+                        administrarMedicos();
                         break;
 
                     case 3:
                         //eliminar Medico
-                       Medico.eliminarMedico(medicosArray);
+                        Medico.mostrarMedico(medicosArray );
+                        Medico.eliminarMedico(medicosArray);
                         break;
 
                     case 4:
                         //actualizar medico
-                       Medico.actualizarMedico(medicosArray);
+                        Medico.mostrarMedico(medicosArray );
+                        Medico.actualizarMedico(medicosArray);
                         break;
                     case 5: 
                         menuSelection();
