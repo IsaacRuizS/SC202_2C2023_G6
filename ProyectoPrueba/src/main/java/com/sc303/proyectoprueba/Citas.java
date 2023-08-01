@@ -143,6 +143,7 @@ public class Citas {
      
         // Mostrar los mnedicos que tengan relacion con el servicio/especialidad y que el usuario seleccione el id del medico a reservar
         int idMedico = Medico.medicoEspecialidad(medicosArray, servicioSeleccionado);
+        nuevaCita.setIdMedico(idMedico);
         
         //seleccionar el dia y la hora del calendario
         int[] diaYHoraCita = Calendario.mostrarCalendario();
@@ -152,58 +153,40 @@ public class Citas {
         
         //Validar el horario del medico 
         // de citasArray mostrar/validar los espacios disponibles  para que el cliente pueda seleccionar solo una hora disp
-        /*Citas[] citasFiltradas = filtrarCitasPorMedico(citasArray, idMedico);
-        String filtrarCitas="";
-        // Mostrar las citas filtradas
-        for (Citas cita : citasFiltradas) {
-            if (cita != null) {
-                filtrarCitas+=cita+"\n";        
+
+        if (verificarCitaDisponible(citasArray, medicosArray, idMedico, diaSeleccionado, mesSeleccionada, horaSeleccionada, duracion)) {
+            nuevaCita.setDia(diaSeleccionado);
+            nuevaCita.setMes(mesSeleccionada);
+            nuevaCita.setHoras(horaSeleccionada);
+            nuevaCita.setCantidadHoras(duracion);
+
+            // Solicitar nombre y teléfono del cliente
+            String nombreCliente = JOptionPane.showInputDialog(null, "Ingrese el nombre del cliente:");
+            String telefonoCliente = JOptionPane.showInputDialog(null, "Ingrese el teléfono del cliente:");
+            nuevaCita.setNombreCliente(nombreCliente);
+            nuevaCita.setTelefonoCliente(telefonoCliente);
+
+            // Calcular el cobro según el tipo de servicio y día de la semana
+            double cobro=0;
+            nuevaCita.setCobro(cobro);
+
+            // Establecer el estado como "activo"
+            nuevaCita.setEstado(true);
+
+            // Agregar la nueva cita al arreglo de citas
+            for (int i = 0; i < citasArray.length; i++) {
+                if (citasArray[i] == null) {
+                    citasArray[i] = nuevaCita;
+                    break;
+                }
             }
-        }*/
-        //validar que la hora, dia y mes seleccionado esten libres 
-        //for para recorrer citas filtradas[i] y dentro de esefor un if que valide que el dia, mes y hora no esten seleccionadas
-        // el else de ese if necesita un mensaje de error y luego hacer esto idMedico = Medico.medicoEspecialidad(medicosArray, servicioSeleccionado)
-        
-        //citasFiltradas[0].getMes();
-
-        
-        nuevaCita.setDia(diaSeleccionado);
-        nuevaCita.setMes(mesSeleccionada);
-        nuevaCita.setHoras(horaSeleccionada);
-        nuevaCita.setCantidadHoras(duracion);
-
-        // Solicitar nombre y teléfono del cliente
-        String nombreCliente = JOptionPane.showInputDialog(null, "Ingrese el nombre del cliente:");
-        String telefonoCliente = JOptionPane.showInputDialog(null, "Ingrese el teléfono del cliente:");
-        nuevaCita.setNombreCliente(nombreCliente);
-        nuevaCita.setTelefonoCliente(telefonoCliente);
-
-        // Calcular el cobro según el tipo de servicio y día de la semana
-        double cobro;
-        if (diaSeleccionado >= 1 && diaSeleccionado <= 5) {
-            // Entre semana (lunes a viernes)
-            cobro = duracion * 25000;
-        } else {
-            // Fines de semana (sábado y domingo)
-            cobro = duracion * 40000;
+            JOptionPane.showMessageDialog(null, "Cita reservada con éxito");
+            ProyectoPrueba.menuSelection();
+        }else {
+            JOptionPane.showMessageDialog(null, "Lo siento, esa cita no está disponible.");
+             ProyectoPrueba.menuSelection();
         }
-        // Calcular el IVA
-        double iva = cobro * 0.13;
-        cobro += iva;
-        nuevaCita.setCobro(cobro);
-
-        // Establecer el estado como "activo"
-        nuevaCita.setEstado(true);
-
-        // Agregar la nueva cita al arreglo de citas
-        for (int i = 0; i < citasArray.length; i++) {
-            if (citasArray[i] == null) {
-                citasArray[i] = nuevaCita;
-                break;
-            }
-        }
-        JOptionPane.showMessageDialog(null, "Cita reservada con éxito");
-        ProyectoPrueba.menuSelection();
+        
     }
 
     public static void mostrarCitas(Citas[] citasArray) {
@@ -232,16 +215,38 @@ public class Citas {
         JOptionPane.showMessageDialog(null, citasText.toString());
         ProyectoPrueba.menuSelection();
     }
-       // Método para filtrar citas por idMedico
-    public static Citas[] filtrarCitasPorMedico(Citas[] citas, int idMedico) {
-        Citas[] citasFiltradas = new Citas[citas.length];
-        int count = 0;
-        for (Citas cita : citas) {
-            if (cita.getIdMedico() == idMedico) {
-                citasFiltradas[count++] = cita;
-             }
-          }
-        return citasFiltradas;
+     public static boolean verificarCitaDisponible(Citas[] citasArray,Medico[] medicosArray, int idMedico, int dia, int mes, int horas, int cantidadHoras) {
+        for (Citas cita : citasArray) {
+            if(cita != null){
+                if (cita.getIdMedico() == idMedico && cita.getDia() == dia && cita.getMes() == mes) {
+                   // Verificar si las horas se superponen
+                   if (horas >= cita.getHoras() && horas < cita.getHoras() + cita.getCantidadHoras()) {
+                       // La cita está ocupada
+                       return false; 
+                   }
+               }   
+            }
+        }
+         // Obtener el médico correspondiente al idMedico
+        Medico medico = null;
+        for (Medico cMedico : medicosArray) {
+            if (cMedico != null && cMedico.getIdMedico() == idMedico) {
+                medico = cMedico;
+                break;
+            }
+        }
+        if (medico != null) {
+            // Verificar si la hora deseada está dentro del horario de almuerzo del médico
+            int horaAlmuerzo = medico.getHoraAlmuerzo();
+            int finAlmuerzo = horaAlmuerzo + 1; // Suponemos que el almuerzo dura una hora
+
+            if (horas >= horaAlmuerzo && horas < finAlmuerzo) {
+                // La cita coincide con la hora de almuerzo del médico
+                return false;
+            }
+        }
+        // La cita está disponible
+        return true; 
     }
     
     public static void devolucionCita(){
@@ -251,5 +256,7 @@ public class Citas {
     }
     public static void actualizarCita(){
     }
+    
+    
     
 }
