@@ -84,9 +84,7 @@ public class Calendario {
         
         int[] diaYHoraCita = {dia, horaSeleccionada, month};
         return diaYHoraCita;
-
     }
- 
 
     // Obtener el día de la semana correspondiente a esa fecha crada gracias al objeto LocalDate
     public static int obtenerDiaSemana(int month, int day) {
