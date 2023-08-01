@@ -167,10 +167,42 @@ public class Citas {
         //validar que la hora, dia y mes seleccionado esten libres 
         //for para recorrer citas filtradas[i] y dentro de esefor un if que valide que el dia, mes y hora no esten seleccionadas
         // el else de ese if necesita un mensaje de error y luego hacer esto idMedico = Medico.medicoEspecialidad(medicosArray, servicioSeleccionado)
-        
-        citasFiltradas[0].getMes();
+     
+        // seleccionar el dia y la hora del calendario
+    int[] diaYHoraCita = Calendario.mostrarCalendario();
+    int diaSeleccionado = diaYHoraCita[0];
+    int horaSeleccionada = diaYHoraCita[1];
+    int mesSeleccionado = diaYHoraCita[2];
 
-        
+    // Validar el horario del medico
+    // Filtrar las citas existentes para el médico seleccionado
+    Citas[] citasFiltradas = filtrarCitasPorMedico(citasArray, idMedico);
+
+    // Validar si la cita está disponible
+    boolean citaDisponible = true; // Suponemos que la cita está inicialmente disponible
+
+    for (Citas cita : citasFiltradas) {
+    if (cita != null && cita.getHora() == horaSeleccionada && cita.getDia() == diaSeleccionado && cita.getMes() == mesSeleccionado) {
+        // Si la hora, día y mes seleccionados coinciden con una cita existente, la cita no está disponible.
+        citaDisponible = false;
+        break; // No es necesario seguir buscando, ya encontramos una coincidencia.
+    }
+}
+
+    if (citaDisponible) {
+    // La cita está disponible, puedes proceder a agendarla o hacer lo que desees.
+    // Código para agendar la cita o mostrar un mensaje de confirmación, etc.
+    // Por ejemplo, puedes crear una nueva cita y agregarla al arreglo de citasArray:
+    Citas nuevaCita = new Citas (cantidadHoras, nombreCliente, telefonoCliente, diaSeleccionado, mesSeleccionado, servicioSeleccionado, horas, idMedico, cobro, estado);
+    agregarNuevaCita(citasArray, nuevaCita); // Asegúrate de implementar este método para agregar la cita al arreglo
+    JOptionPane.showMessageDialog(null, "La cita ha sido agendada correctamente.");
+    } 
+       else {
+    JOptionPane.showMessageDialog(null, "Lo sentimos, esta hora ya está ocupada.");
+}
+
+      citasFiltradas[0].getMes();
+
         nuevaCita.setDia(diaSeleccionado);
         nuevaCita.setMes(mesSeleccionada);
         nuevaCita.setHoras(horaSeleccionada);
