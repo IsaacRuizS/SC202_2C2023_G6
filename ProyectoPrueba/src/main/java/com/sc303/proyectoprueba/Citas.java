@@ -249,12 +249,28 @@ public class Citas {
         return true; 
     }
     
-    public static void devolucionCita(){
+    public static void devolucionCita(Citas[] citasArray) {
+         StringBuilder citaText = new StringBuilder();
+        for ( Citas cita : citasArray) {
+            if ( cita != null) {
+                citaText.append("Nombre del cliente: ").append(cita.getNombreCliente()).append("\n");
+                citaText.append("Teléfono: ").append(cita. getTelefonoCliente()).append("\n");
+                citaText.append("Día: ").append(cita.getDia()).append("\n");
+                citaText.append("Servicio: ").append(cita.getServicio()).append("\n");
+                citaText.append("Estado: ").append(cita.isEstado() ? "Activa" : "Cancelada").append("\n");
+                citaText.append("----------------------------------------\n");
+   }
+        }
+        if (citaText.length() == 0) {
+             citaText.append("No hay citas registrado.");
+        }
+        JOptionPane.showMessageDialog(null, citaText);
     }
-
-    public static void mostrarEspacioCita(){
     }
-    public static void actualizarCita(){
+  
+     public static void mostrarEspacioCita(){
+    }
+     public static void actualizarCita(){
     }
     
     
