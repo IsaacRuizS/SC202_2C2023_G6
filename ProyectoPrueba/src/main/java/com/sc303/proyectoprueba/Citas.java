@@ -257,12 +257,14 @@ public class Citas {
         String citasEncontradas="";
         int idEliminar = -1;
         for (Citas cita : citasArray) {
-            if (cita.getNombreCliente().equals(nombreClienteEliminar)) {
-                citasEncontradas += "Id: "+ cita.getId() +", Cliente: " + cita.getNombreCliente() + ", Fecha: " + cita.getDia() + "/" + cita.getMes() +"/23\n" ;
+            if(cita != null){
+                if (cita.getNombreCliente().equals(nombreClienteEliminar)) {
+                    citasEncontradas += "Id: "+ cita.getId() +", Cliente: " + cita.getNombreCliente() + ", Fecha: " + cita.getDia() + "/" + cita.getMes() +"/23\n" ;
+                }
             }
         }
         if(!"".equals(citasEncontradas)){
-            idEliminar = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el id a eliminar: "+ citasEncontradas));
+            idEliminar = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el id a eliminar: \n"+ citasEncontradas));
         }else{
             JOptionPane.showMessageDialog(null, "No hay citas registradas al cliente insertado.");
             ProyectoPrueba.menuSelection();
@@ -274,14 +276,19 @@ public class Citas {
 
             // Copiar todas las citas de citasArray a citasActualizadas excepto la cita con idEliminar
             for (Citas cita : citasArray) {
-                if (cita.getId() != idEliminar) {
-                    citasActualizadas[nuevoIndice] = cita;
-                    nuevoIndice++;
+                if(cita != null){
+                    if (cita.getId() != idEliminar) {
+                        citasActualizadas[nuevoIndice] = cita;
+                        nuevoIndice++;
+                    }
                 }
             }
 
             // Ahora, citasArray está actualizado con la cita eliminada
             citasArray = citasActualizadas;
+            
+            JOptionPane.showMessageDialog(null, "Ha devuelto la cita con exito");
+            ProyectoPrueba.menuSelection();
         }else{
             JOptionPane.showMessageDialog(null, "Id Incorrecto.");
             ProyectoPrueba.menuSelection();
