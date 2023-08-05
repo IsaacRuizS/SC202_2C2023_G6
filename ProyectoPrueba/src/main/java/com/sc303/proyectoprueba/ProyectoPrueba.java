@@ -54,6 +54,7 @@ public class ProyectoPrueba {
                             break;
                         case 3:
                             //Devolucion de Espacios
+                            Citas.devolucionCita(citasArray);
                             break;
 
                         case 4:

@@ -13,10 +13,10 @@ public class Citas {
     private int horas;
     private int idMedico;
     private double cobro;
-    private boolean estado;
+    private int id;
     
 
-    public Citas(int cantidadHoras, String nombreCliente, String telefonoCliente, int dia, int mes, String servicio, int horas, int idMedico, double cobro, boolean estado) {
+    public Citas(int cantidadHoras, String nombreCliente, String telefonoCliente, int dia, int mes, String servicio, int horas, int idMedico, double cobro, int id) {
         this.cantidadHoras = cantidadHoras;
         this.nombreCliente = nombreCliente;
         this.telefonoCliente = telefonoCliente;
@@ -26,7 +26,7 @@ public class Citas {
         this.horas = horas;
         this.idMedico = idMedico;
         this.cobro = cobro;
-        this.estado = estado;
+        this.id = id;
     }
 
     public Citas() {
@@ -105,13 +105,15 @@ public class Citas {
         this.cobro = cobro;
     }
 
-    public boolean isEstado() {
-        return estado;
+    public int getId() {
+        return id;
     }
 
-    public void setEstado(boolean estado) {
-        this.estado = estado;
+    public void setId(int id) {
+        this.id = id;
     }
+
+   
     
     //metodos
     public static void reservarCita(Citas[] citasArray, Medico[] medicosArray) {
@@ -170,12 +172,12 @@ public class Citas {
             double cobro=0;
             nuevaCita.setCobro(cobro);
 
-            // Establecer el estado como "activo"
-            nuevaCita.setEstado(true);
 
             // Agregar la nueva cita al arreglo de citas
             for (int i = 0; i < citasArray.length; i++) {
                 if (citasArray[i] == null) {
+                    //set id
+                    nuevaCita.setId(i);
                     citasArray[i] = nuevaCita;
                     break;
                 }
@@ -195,6 +197,7 @@ public class Citas {
 
         for (Citas cita : citasArray) {
             if (cita != null) {
+                citasText.append("Id: ").append(cita.getId()).append("\n");
                 citasText.append("Cliente: ").append(cita.getNombreCliente()).append("\n");
                 citasText.append("Teléfono: ").append(cita.getTelefonoCliente()).append("\n");
                 citasText.append("Día: ").append(cita.getDia()).append("\n");
@@ -203,9 +206,7 @@ public class Citas {
                 citasText.append("Duración: ").append(cita.getCantidadHoras()).append(" horas").append("\n");
                 citasText.append("ID Médico: ").append(cita.getIdMedico()).append("\n");
                 citasText.append("Cobro: ").append(cita.getCobro()).append("\n");
-                citasText.append("Estado: ").append(cita.isEstado() ? "Activa" : "Cancelada").append("\n");
                 citasText.append("----------------------------------------\n");
-                
             }
         }
         if (citasText.length() == 0) {
@@ -215,6 +216,7 @@ public class Citas {
         JOptionPane.showMessageDialog(null, citasText.toString());
         ProyectoPrueba.menuSelection();
     }
+    
      public static boolean verificarCitaDisponible(Citas[] citasArray,Medico[] medicosArray, int idMedico, int dia, int mes, int horas, int cantidadHoras) {
         for (Citas cita : citasArray) {
             if(cita != null){
@@ -249,7 +251,42 @@ public class Citas {
         return true; 
     }
     
-    public static void devolucionCita(){
+    public static void devolucionCita(Citas[] citasArray){
+        String nombreClienteEliminar = JOptionPane.showInputDialog("Digite el nombre del cliente que desea realizar la devolucion de la cita");
+        // Filtrar y mostrar los objetos con el mismo nombre de cliente
+        String citasEncontradas="";
+        int idEliminar = -1;
+        for (Citas cita : citasArray) {
+            if (cita.getNombreCliente().equals(nombreClienteEliminar)) {
+                citasEncontradas += "Id: "+ cita.getId() +", Cliente: " + cita.getNombreCliente() + ", Fecha: " + cita.getDia() + "/" + cita.getMes() +"/23\n" ;
+            }
+        }
+        if(!"".equals(citasEncontradas)){
+            idEliminar = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el id a eliminar: "+ citasEncontradas));
+        }else{
+            JOptionPane.showMessageDialog(null, "No hay citas registradas al cliente insertado.");
+            ProyectoPrueba.menuSelection();
+        }
+        if (idEliminar != -1) {
+            // Crear un nuevo array para almacenar las citas restantes después de la eliminación
+            Citas[] citasActualizadas = new Citas[citasArray.length - 1];
+            int nuevoIndice = 0;
+
+            // Copiar todas las citas de citasArray a citasActualizadas excepto la cita con idEliminar
+            for (Citas cita : citasArray) {
+                if (cita.getId() != idEliminar) {
+                    citasActualizadas[nuevoIndice] = cita;
+                    nuevoIndice++;
+                }
+            }
+
+            // Ahora, citasArray está actualizado con la cita eliminada
+            citasArray = citasActualizadas;
+        }else{
+            JOptionPane.showMessageDialog(null, "Id Incorrecto.");
+            ProyectoPrueba.menuSelection();
+        }
+        
     }
 
     public static void mostrarEspacioCita(){
