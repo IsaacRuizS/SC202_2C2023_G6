@@ -115,6 +115,7 @@ public class Citas {
     
     //metodos
     public static void reservarCita(Citas[] citasArray, Medico[] medicosArray) {
+
          // Crear una nueva instancia de Citas 
         Citas nuevaCita = new Citas();
 
@@ -142,13 +143,23 @@ public class Citas {
         }
      
         // Mostrar los mnedicos que tengan relacion con el servicio/especialidad y que el usuario seleccione el id del medico a reservar
-        int idMedico = Medico.medicoEspecialidad(medicosArray, servicioSeleccionado);
-        
+       Citas[] citasFiltradas = filtrarCitasPorMedico(citasArray, idMedico);
+StringBuilder medicosDisponibles = new StringBuilder("Médicos disponibles:\n");
+for (Citas cita : citasFiltradas) {
+    if (cita != null) {
+        medicosDisponibles.append("ID Médico: ").append(cita.getIdMedico()).append("\n");
+    }
+}
+JOptionPane.showMessageDialog(null, medicosDisponibles.toString());
         //seleccionar el dia y la hora del calendario
         int[] diaYHoraCita = Calendario.mostrarCalendario();
         int diaSeleccionado = diaYHoraCita[0];
         int horaSeleccionada = diaYHoraCita[1];
         int mesSeleccionada = diaYHoraCita[2];
+        //crear una nueva uncion que se encarge de vaidar si es fin de semana o entre semana 
+        // 3 parametros dia,hora y mes
+        
+        //validarFinSemana(diaSeleccionado,horaSeleccionada,mesSeleccionada);
         
         //Validar el horario del medico 
         // de citasArray mostrar/validar los espacios disponibles  para que el cliente pueda seleccionar solo una hora disp
@@ -178,15 +189,16 @@ public class Citas {
         nuevaCita.setNombreCliente(nombreCliente);
         nuevaCita.setTelefonoCliente(telefonoCliente);
 
-        // Calcular el cobro según el tipo de servicio y día de la semana
-        double cobro;
-        if (diaSeleccionado >= 1 && diaSeleccionado <= 5) {
-            // Entre semana (lunes a viernes)
-            cobro = duracion * 25000;
-        } else {
-            // Fines de semana (sábado y domingo)
-            cobro = duracion * 40000;
-        }
+ 
+// Calcular el cobro según el tipo de servicio y día de la semana
+double cobro;
+if (validarFinSemana(diaSeleccionado, horaSeleccionada, mesSeleccionada)) {
+    // Fines de semana (sábado y domingo)
+    cobro = duracion * 40000;
+} else {
+    // Entre semana (lunes a viernes)
+    cobro = duracion * 25000;
+}
         // Calcular el IVA
         double iva = cobro * 0.13;
         cobro += iva;
@@ -251,5 +263,22 @@ public class Citas {
     }
     public static void actualizarCita(){
     }
-    
+    public static boolean validarFinSemana(int dia, int hora, int mes) {
+    if (dia <= 0 || dia > 31 || hora < 0 || hora > 23 || mes < 1 || mes > 12) {
+        throw new IllegalArgumentException("Valores de día, hora o mes no válidos.");
+    }
+
+    // Si el día es sábado (6) o domingo (7), entonces es fin de semana
+    if (dia % 7 == 6 || dia % 7 == 0) {
+        return true;
+    }
+
+    // Si el mes es febrero, y el día es 29, también se considera fin de semana
+    if (mes == 2 && dia == 29) {
+        return true;
+    }
+
+    return false;
+}
+
 }
