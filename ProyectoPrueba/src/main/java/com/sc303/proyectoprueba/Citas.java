@@ -251,48 +251,111 @@ public class Citas {
         return true; 
     }
     
-    public static Citas[] devolucionCita(Citas[] citasArray){
+    public static Citas[] devolucionCita(Citas[] citasArray, Medico[] medicosArray){
         String nombreClienteEliminar = JOptionPane.showInputDialog("Digite el nombre del cliente que desea realizar la devolucion de la cita");
-        // Filtrar y mostrar los objetos con el mismo nombre de cliente
-        String citasEncontradas="";
-        int idEliminar = -1;
-        for (Citas cita : citasArray) {
-            if(cita != null){
-                if (cita.getNombreCliente().equals(nombreClienteEliminar)) {
-                    citasEncontradas += "Id: "+ cita.getId() +", Cliente: " + cita.getNombreCliente() + ", Fecha: " + cita.getDia() + "/" + cita.getMes() +"/23\n" ;
-                }
+        String nombreMedicoEliminar = JOptionPane.showInputDialog("Digite el nombre del medico que desea realizar la devolucion de la cita");
+     //buscar el nombre del medico dentro de medicos array y obtener el idmedico de medicos array
+        int idMedicoEliminar = -1;
+        for (Medico medico : medicosArray) {
+            if (medico != null && medico.getNombre().equals(nombreMedicoEliminar)) {
+                idMedicoEliminar = medico.getIdMedico();
+                break;
             }
         }
-        if(!"".equals(citasEncontradas)){
-            idEliminar = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el id a eliminar: \n"+ citasEncontradas));
-        }else{
-            JOptionPane.showMessageDialog(null, "No hay citas registradas al cliente insertado.");
-            ProyectoPrueba.menuSelection();
+     // mes el dia y la hora
+      String[] months = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+                          "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};    
+      
+     String seleccion = (String) JOptionPane.showInputDialog(null, "Selecciona una opción", "Menú desplegable",
+            JOptionPane.QUESTION_MESSAGE, null, months, months[0]);
+        
+        // Obtener la posición del mes seleccionado
+        int month = -1;
+        for (int i = 0; i < months.length; i++) {
+            if (months[i].equals(seleccion)) {
+                month = i;
+                break;
+            }
         }
-        if (idEliminar != -1) {
-            // Crear un nuevo array para almacenar las citas restantes después de la eliminación
-            Citas[] citasActualizadas = new Citas[citasArray.length - 1];
-            int nuevoIndice = 0;
+        month += 1;
+        
+      int dia = Integer.parseInt(JOptionPane.showInputDialog("Digite el día para la devolución de la cita"));
+      boolean diaValido = false;
+      while (!diaValido) {
+      String input = JOptionPane.showInputDialog("Digite el día para la devolución");
+      try {
+      dia = Integer.parseInt(input);
+      if (dia >= 1 && dia <= 31) { // Cambia 31 por el número máximo de días en el mes
+            diaValido = true;
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese un día válido (entre 1 y 31).");
+        }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "Por favor, ingrese un valor numérico válido.");
+    }
+}
+      int hora = Integer.parseInt(JOptionPane.showInputDialog("Digite el hora para la devolución de la cita"));
+      boolean horaValida = false;
 
-            // Copiar todas las citas de citasArray a citasActualizadas excepto la cita con idEliminar
+     while (!horaValida) {
+    String input = JOptionPane.showInputDialog("Digite la hora para la devolución");
+    try {
+        hora = Integer.parseInt(input);
+        if (hora >= 0 && hora <= 23) {
+            horaValida = true;
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese una hora válida (entre 0 y 23).");
+        }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "Por favor, ingrese un valor numérico válido.");
+    }
+}
+
+     //devolver cita 
+        if(idMedicoEliminar != -1){
+            String citasEncontradas="";
+            int idEliminar = -1;
             for (Citas cita : citasArray) {
                 if(cita != null){
-                    if (cita.getId() != idEliminar) {
-                        citasActualizadas[nuevoIndice] = cita;
-                        nuevoIndice++;
+                    if (cita.getNombreCliente().equals(nombreClienteEliminar)&&cita.getIdMedico() == idMedicoEliminar ) {
+                        citasEncontradas += "Id: "+ cita.getId() +", Cliente: " + cita.getNombreCliente() + ", Fecha: " + cita.getDia() + "/" + cita.getMes() +"/23\n" ;
                     }
                 }
             }
-            // Ahora, citasArray está actualizado con la cita eliminada
-            citasArray = citasActualizadas;
-            JOptionPane.showMessageDialog(null, "Ha devuelto la cita con exito");
-            return citasArray;
-            //ProyectoPrueba.menuSelection();
+            if(!"".equals(citasEncontradas)){
+                idEliminar = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el id a eliminar: \n"+ citasEncontradas));
+            }else{
+                JOptionPane.showMessageDialog(null, "No hay citas registradas al cliente insertado.");
+                ProyectoPrueba.menuSelection();
+            }
+            if (idEliminar != -1) {
+                // Crear un nuevo array para almacenar las citas restantes después de la eliminación
+                Citas[] citasActualizadas = new Citas[citasArray.length - 1];
+                int nuevoIndice = 0;
+
+                // Copiar todas las citas de citasArray a citasActualizadas excepto la cita con idEliminar
+                for (Citas cita : citasArray) {
+                    if(cita != null){
+                        if (cita.getId() != idEliminar) {
+                            citasActualizadas[nuevoIndice] = cita;
+                            nuevoIndice++;
+                        }
+                    }
+                }
+                // Ahora, citasArray está actualizado con la cita eliminada
+                citasArray = citasActualizadas;
+                JOptionPane.showMessageDialog(null, "Ha devuelto la cita con exito");
+                return citasArray;
+                //ProyectoPrueba.menuSelection();
+            }else{
+                JOptionPane.showMessageDialog(null, "Id Incorrecto.");
+            }
+            
         }else{
-            JOptionPane.showMessageDialog(null, "Id Incorrecto.");
+            JOptionPane.showMessageDialog(null, "Id del medico no encontrado");
         }
+        
         return citasArray;
-    }
     }
   
      public static void mostrarEspacioCita(){

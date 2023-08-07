@@ -52,7 +52,7 @@ public class ProyectoPrueba {
                             break;
                         case 3:
                             //Devolucion de Espacios
-                           citasArray =  Citas.devolucionCita(citasArray);
+                           citasArray =  Citas.devolucionCita(citasArray, medicosArray);
                            menuSelection();
                             break;
 
