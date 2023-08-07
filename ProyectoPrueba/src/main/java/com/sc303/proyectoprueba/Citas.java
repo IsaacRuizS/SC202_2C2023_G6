@@ -1,5 +1,6 @@
 package com.sc303.proyectoprueba;
 
+import java.time.YearMonth;
 import javax.swing.JOptionPane;
 
 public class Citas {
@@ -153,49 +154,50 @@ public class Citas {
         int horaSeleccionada = diaYHoraCita[1];
         int mesSeleccionada = diaYHoraCita[2];
         
-        //Validar el horario del medico 
-        // de citasArray mostrar/validar los espacios disponibles  para que el cliente pueda seleccionar solo una hora disp
+        boolean esDiaValido = validarDiaMes(diaSeleccionado, mesSeleccionada, 2023);
 
-        if (verificarCitaDisponible(citasArray, medicosArray, idMedico, diaSeleccionado, mesSeleccionada, horaSeleccionada, duracion)) {
-            nuevaCita.setDia(diaSeleccionado);
-            nuevaCita.setMes(mesSeleccionada);
-            nuevaCita.setHoras(horaSeleccionada);
-            nuevaCita.setCantidadHoras(duracion);
+        if (esDiaValido) {
+            //Validar el horario del medico 
+            // de citasArray mostrar/validar los espacios disponibles  para que el cliente pueda seleccionar solo una hora disp
+            if (verificarCitaDisponible(citasArray, medicosArray, idMedico, diaSeleccionado, mesSeleccionada, horaSeleccionada, duracion)) {
+                nuevaCita.setDia(diaSeleccionado);
+                nuevaCita.setMes(mesSeleccionada);
+                nuevaCita.setHoras(horaSeleccionada);
+                nuevaCita.setCantidadHoras(duracion);
 
-            // Solicitar nombre y teléfono del cliente
-            String nombreCliente = JOptionPane.showInputDialog(null, "Ingrese el nombre del cliente:");
-            String telefonoCliente = JOptionPane.showInputDialog(null, "Ingrese el teléfono del cliente:");
-            nuevaCita.setNombreCliente(nombreCliente);
-            nuevaCita.setTelefonoCliente(telefonoCliente);
+                // Solicitar nombre y teléfono del cliente
+                String nombreCliente = JOptionPane.showInputDialog(null, "Ingrese el nombre del cliente:");
+                String telefonoCliente = JOptionPane.showInputDialog(null, "Ingrese el teléfono del cliente:");
+                nuevaCita.setNombreCliente(nombreCliente);
+                nuevaCita.setTelefonoCliente(telefonoCliente);
 
-            // Calcular el cobro según el tipo de servicio y día de la semana
-            double cobro=0;
-            
-            //llamar a una nueva funcion y validar si es fin de semana o no.
-            
-            //Se debe manejar un precio entre semana de 25000 colones la hora y fines de semana de 40000 colones la hora. A ese precio se le debe sumar el IVA del 13%. 
+                // Calcular el cobro según el tipo de servicio y día de la semana
+                double cobro=0;
 
-            
-            
-            nuevaCita.setCobro(cobro);
+                //llamar a una nueva funcion y validar si es fin de semana o no.
 
-
-            // Agregar la nueva cita al arreglo de citas
-            for (int i = 0; i < citasArray.length; i++) {
-                if (citasArray[i] == null) {
-                    //set id
-                    nuevaCita.setId(i);
-                    citasArray[i] = nuevaCita;
-                    break;
+                //Se debe manejar un precio entre semana de 25000 colones la hora y fines de semana de 40000 colones la hora. A ese precio se le debe sumar el IVA del 13%. 
+                nuevaCita.setCobro(cobro);
+                // Agregar la nueva cita al arreglo de citas
+                for (int i = 0; i < citasArray.length; i++) {
+                    if (citasArray[i] == null) {
+                        //set id
+                        nuevaCita.setId(i);
+                        citasArray[i] = nuevaCita;
+                        break;
+                    }
                 }
+                JOptionPane.showMessageDialog(null, "Cita reservada con éxito");
+                ProyectoPrueba.menuSelection();
+            }else {
+                JOptionPane.showMessageDialog(null, "Lo siento, esa cita no está disponible.");
+                 ProyectoPrueba.menuSelection();
             }
-            JOptionPane.showMessageDialog(null, "Cita reservada con éxito");
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Lo siento, formato incorrecto.");
             ProyectoPrueba.menuSelection();
-        }else {
-            JOptionPane.showMessageDialog(null, "Lo siento, esa cita no está disponible.");
-             ProyectoPrueba.menuSelection();
         }
-        
     }
 
     public static void mostrarCitas(Citas[] citasArray) {
@@ -303,9 +305,14 @@ public class Citas {
 
     public static void mostrarEspacioCita(){
     }
-    public static void actualizarCita(){
+  
+     public static boolean validarDiaMes(int dia, int mes, int anio) {
+        YearMonth yearMonthObject = YearMonth.of(anio, mes);
+
+        if (dia >= 1 && dia <= yearMonthObject.lengthOfMonth()) {
+            return true;
+        }
+        return false;
     }
-    
-    
     
 }

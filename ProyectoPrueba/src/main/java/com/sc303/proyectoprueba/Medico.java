@@ -65,7 +65,20 @@ public class Medico {
     }
   
     //Metodos
-    public static Medico crearMedico(Medico[] listaMedicos) {
+    public static Medico[] crearMedico(Medico[] listaMedicos) {
+        boolean limiteExedidoDeMedicos = true;
+        
+        for(Medico listaMedico: listaMedicos){
+            if (listaMedico == null) {
+                limiteExedidoDeMedicos = false;
+                break;
+            }else{
+                limiteExedidoDeMedicos = true;
+            }
+        }
+        
+        if(!limiteExedidoDeMedicos){
+            
         Medico nuevoMedico = new Medico();
         int nuevoIdMedico = 0;
         
@@ -104,45 +117,43 @@ public class Medico {
             }
         }
         JOptionPane.showMessageDialog(null, "Medico Agregado con éxito");
-        ProyectoPrueba.administrarMedicos();
-        
-        return nuevoMedico;
+        }else{
+                JOptionPane.showMessageDialog(null, "Se ha excedido el limite de medicos");
+        }
+        return listaMedicos;
     }
     
-    public static void eliminarMedico(Medico[] listaMedicos) {
-    String idMedicoEliminar = JOptionPane.showInputDialog(null, "Ingrese el ID del médico que desea eliminar:", "Eliminar médico", JOptionPane.QUESTION_MESSAGE);
+    public static Medico[] eliminarMedico(Medico[] listaMedicos) {
+        try {
+            int idMedicoAEliminar = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el ID del médico que desea eliminar:", "Eliminar médico", JOptionPane.QUESTION_MESSAGE));
 
-    try {
-        int idMedicoAEliminar = Integer.parseInt(idMedicoEliminar);
-
-        boolean medicoEncontrado = false;
-        for (int i = 0; i < listaMedicos.length; i++) {
-            if (listaMedicos[i] != null && listaMedicos[i].getIdMedico() == idMedicoAEliminar) {
-                listaMedicos[i] = null;
-                medicoEncontrado = true;
-                break;
+            boolean medicoEncontrado = false;
+            for (int i = 0; i < listaMedicos.length; i++) {
+                if (listaMedicos[i] != null && listaMedicos[i].getIdMedico() == idMedicoAEliminar) {
+                    listaMedicos[i] = null;
+                    medicoEncontrado = true;
+                    break;
+                }
             }
-        }
 
-        if (medicoEncontrado) {
-            JOptionPane.showMessageDialog(null, "El médico con ID " + idMedicoAEliminar + " ha sido eliminado.", "Médico eliminado", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(null, "No se encontró ningún médico con el ID " + idMedicoAEliminar + ".", "Médico no encontrado", JOptionPane.ERROR_MESSAGE);
+            if (medicoEncontrado) {
+                JOptionPane.showMessageDialog(null, "El médico con ID " + idMedicoAEliminar + " ha sido eliminado.", "Médico eliminado", JOptionPane.INFORMATION_MESSAGE);
+                return listaMedicos;
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró ningún médico con el ID " + idMedicoAEliminar + ".", "Médico no encontrado", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "El ID del médico debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        ProyectoPrueba.administrarMedicos();
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null, "El ID del médico debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
-        ProyectoPrueba.administrarMedicos();
+        return listaMedicos;
     }
-}
 
-    public static void actualizarMedico(Medico[] listaMedicos) {
+    public static Medico[] actualizarMedico(Medico[] listaMedicos) {
         Medico medico = new Medico();
         
         int idMedico = Integer.parseInt(JOptionPane.showInputDialog("Indique el numero de id del medico a actualizar "));
         int contador = 6 ;
         for(int i = 0; i < listaMedicos.length; i++){
-            JOptionPane.showMessageDialog(null, listaMedicos[i].getIdMedico());
             if(listaMedicos[i].getIdMedico() == idMedico){
                 contador = i;
                 break;
@@ -170,15 +181,15 @@ public class Medico {
             medico.setEstado(true);
             if (contador != 6) {
                 listaMedicos[contador] = medico;
-                ProyectoPrueba.administrarMedicos();
+                JOptionPane.showMessageDialog(null, "Medico actualizado");
+                return listaMedicos;
             }else{
                 JOptionPane.showMessageDialog(null, "Medico no encontrado");
-                ProyectoPrueba.administrarMedicos();
             }
         } else {
             JOptionPane.showMessageDialog(null, "El médico no existe.", "Error", JOptionPane.ERROR_MESSAGE);
-            ProyectoPrueba.administrarMedicos();
         }
+        return listaMedicos;
     }
     public static void mostrarMedico(Medico[]medicoArray){
         StringBuilder medicoText = new StringBuilder();

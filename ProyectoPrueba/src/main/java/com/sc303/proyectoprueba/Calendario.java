@@ -30,7 +30,7 @@ public class Calendario {
         // asignar el mes a mostrar y los dias
         String monthName =  months[month - 1];
         int daysInMonth =  daysPerMonth[month - 1];
-
+        
         // Crea una matriz de 6 semanas como filas y 7 columnas como dias para representar el calendario
         String[][] calendario = new String[6][7];
 
