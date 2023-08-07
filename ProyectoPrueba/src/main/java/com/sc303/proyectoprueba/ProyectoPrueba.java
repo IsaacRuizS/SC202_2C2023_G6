@@ -15,8 +15,6 @@ public class ProyectoPrueba {
     
     public static void menuSelection(){
         try{
-            // meter el codigo en try y hacer catch 
-            // llamar a los metodos de citas en cada uno de los case y crear case 6 para actualizar citas 
             String menuMessage="Bienvenido al Menu de opciones\n";
             menuMessage+="1. Administrar Medicos\n";        
             menuMessage+="2. Reservacion de espacio\n";        
@@ -54,7 +52,8 @@ public class ProyectoPrueba {
                             break;
                         case 3:
                             //Devolucion de Espacios
-                            Citas.devolucionCita(citasArray);
+                           citasArray =  Citas.devolucionCita(citasArray);
+                           menuSelection();
                             break;
 
                         case 4:

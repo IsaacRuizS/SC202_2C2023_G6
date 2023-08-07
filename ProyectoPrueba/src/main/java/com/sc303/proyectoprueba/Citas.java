@@ -251,7 +251,7 @@ public class Citas {
         return true; 
     }
     
-    public static void devolucionCita(Citas[] citasArray){
+    public static Citas[] devolucionCita(Citas[] citasArray){
         String nombreClienteEliminar = JOptionPane.showInputDialog("Digite el nombre del cliente que desea realizar la devolucion de la cita");
         // Filtrar y mostrar los objetos con el mismo nombre de cliente
         String citasEncontradas="";
@@ -283,17 +283,15 @@ public class Citas {
                     }
                 }
             }
-
             // Ahora, citasArray está actualizado con la cita eliminada
             citasArray = citasActualizadas;
-            
             JOptionPane.showMessageDialog(null, "Ha devuelto la cita con exito");
-            ProyectoPrueba.menuSelection();
+            return citasArray;
+            //ProyectoPrueba.menuSelection();
         }else{
             JOptionPane.showMessageDialog(null, "Id Incorrecto.");
-            ProyectoPrueba.menuSelection();
         }
-        
+        return citasArray;
     }
 
     public static void mostrarEspacioCita(){
