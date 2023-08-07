@@ -170,6 +170,13 @@ public class Citas {
 
             // Calcular el cobro según el tipo de servicio y día de la semana
             double cobro=0;
+            
+            //llamar a una nueva funcion y validar si es fin de semana o no.
+            
+            //Se debe manejar un precio entre semana de 25000 colones la hora y fines de semana de 40000 colones la hora. A ese precio se le debe sumar el IVA del 13%. 
+
+            
+            
             nuevaCita.setCobro(cobro);
 
 
