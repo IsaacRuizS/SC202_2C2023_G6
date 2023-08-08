@@ -236,4 +236,5 @@ public class Medico {
         //validar que no vaya vacio   
               return idMedico;
     }
+    
 }

@@ -5,17 +5,20 @@ import javax.swing.JOptionPane;
 
 public class ProyectoPrueba {
     
-    static Citas[] citasArray = new Citas[5];
+    static Citas[] citasArray = new Citas[1000];
     static Medico[] medicosArray = new Medico[5];
 
 
     public static void main(String[] args) {
-         Medico medico1 = new Medico(1,"Isaac","Cirugía Ambulatoria",8,true);
-        Medico medico2 = new Medico(2,"Johan","Cirugía Especializada",8,true);
-        Medico medico3 = new Medico(3,"Celes","Medicina General",8,true);
+        Medico medico1 = new Medico(1,"Isaac","Cirugía Ambulatoria",12,true);
+        Medico medico2 = new Medico(2,"Johan","Cirugía Especializada",13,true);
+        Medico medico3 = new Medico(3,"Celes","Medicina General",13,true);
         medicosArray[0]=medico1;
         medicosArray[1]=medico2;
         medicosArray[2]=medico3;
+        Citas cita1 = new Citas(1,"Alfonso","43245243",1,1,"Medicina General",8,3,0,0);
+        citasArray[0]=cita1;
+        
         
         menuSelection();
         
@@ -61,13 +64,11 @@ public class ProyectoPrueba {
 
                         case 4:
                             //Revision de agenda
+                            Citas.revisarAgenda(citasArray, medicosArray);
                             break;
                         case 5:
                             //Mostrar Reservaciones
                             Citas.mostrarCitas(citasArray);
-                            break;
-                        case 0:
-                            JOptionPane.showMessageDialog(null, "¡Hasta luego!");
                             break;
                         default:
                             JOptionPane.showMessageDialog(null, "¡Hasta luego!");
@@ -135,9 +136,6 @@ public class ProyectoPrueba {
                         break;
                     case 5: 
                         menuSelection();
-                        break;
-                    case 0:
-                        JOptionPane.showMessageDialog(null, "¡Hasta luego!");
                         break;
                     default:
                         JOptionPane.showMessageDialog(null, "¡Hasta luego!");

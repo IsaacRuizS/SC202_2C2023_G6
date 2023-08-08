@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 
 
 public class Calendario {
- public static int[] mostrarCalendario() {
+ public static int[] mostrarCalendario(int opc) {
         //Meses
         String[] months = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
                           "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};    
@@ -73,17 +73,23 @@ public class Calendario {
 
         // Muestra el calendario en un cuadro de diálogo
         int dia = Integer.parseInt(JOptionPane.showInputDialog(null, calendarioTable.toString()));
-        //validar con dias
-        // Horas disponibles
-        var horas = new Integer[]{8, 9, 10, 11, 12, 13, 14, 15, 16, 17};  
         
-        // Mostrar el menú desplegable y obtener la selección del usuario
-        Integer horaSeleccionada = (Integer) JOptionPane.showInputDialog(null, "Selecciona una hora", "Menú desplegable", 
-                JOptionPane.QUESTION_MESSAGE, null, horas, horas[0]);
+        if(opc ==1){
+            // Horas disponibles
+            var horas = new Integer[]{8, 9, 10, 11, 12, 13, 14, 15, 16, 17};  
+
+            // Mostrar el menú desplegable y obtener la selección del usuario
+            Integer horaSeleccionada = (Integer) JOptionPane.showInputDialog(null, "Selecciona una hora", "Menú desplegable", 
+                    JOptionPane.QUESTION_MESSAGE, null, horas, horas[0]);
+
+
+            int[] diaYHoraCita = {dia, horaSeleccionada, month};
+            return diaYHoraCita;
         
-        
-        int[] diaYHoraCita = {dia, horaSeleccionada, month};
-        return diaYHoraCita;
+        }else{
+            int[] diaYHoraCita = {dia, month};
+            return diaYHoraCita;
+        }
     }
 
     // Obtener el día de la semana correspondiente a esa fecha crada gracias al objeto LocalDate
