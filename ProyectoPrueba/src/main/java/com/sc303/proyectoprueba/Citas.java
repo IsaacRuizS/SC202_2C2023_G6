@@ -294,23 +294,6 @@ public class Citas {
         JOptionPane.showMessageDialog(null, "Por favor, ingrese un valor numérico válido.");
     }
 }
-      int hora = Integer.parseInt(JOptionPane.showInputDialog("Digite el hora para la devolución de la cita"));
-      boolean horaValida = false;
-
-     while (!horaValida) {
-    String input = JOptionPane.showInputDialog("Digite la hora para la devolución");
-    try {
-        hora = Integer.parseInt(input);
-        if (hora >= 0 && hora <= 23) {
-            horaValida = true;
-        } else {
-            JOptionPane.showMessageDialog(null, "Por favor, ingrese una hora válida (entre 0 y 23).");
-        }
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null, "Por favor, ingrese un valor numérico válido.");
-    }
-}
-
      //devolver cita 
         if(idMedicoEliminar != -1){
             String citasEncontradas="";
