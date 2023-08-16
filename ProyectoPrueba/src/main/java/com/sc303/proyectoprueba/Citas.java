@@ -204,7 +204,7 @@ public class Citas {
         }
     }
 
-    public static void mostrarCitas(Citas[] citasArray) {
+    public static void mostrarCitas(Citas[] citasArray, Medico[] medicoArray) {
         StringBuilder citasText = new StringBuilder();
         for (Citas cita : citasArray) {
             if (cita != null) {
@@ -215,10 +215,17 @@ public class Citas {
                 citasText.append("Servicio: ").append(cita.getServicio()).append("\n");
                 citasText.append("Hora: ").append(cita.getHoras()).append("\n");
                 citasText.append("Duración: ").append(cita.getCantidadHoras()).append(" horas").append("\n");
-                citasText.append("ID Médico: ").append(cita.getIdMedico()).append("\n");
+                 for(Medico medico : medicoArray){
+                    if(medico!= null){
+                        if(cita.getIdMedico() == medico.getIdMedico()){
+                            citasText.append("Medico: ").append(medico.getNombre()).append("\n");
+                        }
+                    }
+                }
                 citasText.append("Cobro: ").append(cita.getCobro()).append("\n");
                 citasText.append("----------------------------------------\n");
             }
+           
         }
         if (citasText.length() == 0) {
             citasText.append("No hay citas registradas.");

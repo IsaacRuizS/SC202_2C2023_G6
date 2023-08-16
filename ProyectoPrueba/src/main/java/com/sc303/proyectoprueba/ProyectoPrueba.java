@@ -17,8 +17,11 @@ public class ProyectoPrueba {
         medicosArray[1]=medico2;
         medicosArray[2]=medico3;
         Citas cita1 = new Citas(1,"Alfonso","43245243",1,1,"Medicina General",8,3,0,0);
+        Citas cita2 = new Citas(1,"Alfonso","43245243",1,1,"Medicina General",8,2,0,1);
+        Citas cita3 = new Citas(1,"Alfonso","43245243",1,1,"Medicina General",8,1,0,2);
         citasArray[0]=cita1;
-        
+        citasArray[1]=cita2;
+        citasArray[2]=cita3;
         
         menuSelection();
         
@@ -68,7 +71,7 @@ public class ProyectoPrueba {
                             break;
                         case 5:
                             //Mostrar Reservaciones
-                            Citas.mostrarCitas(citasArray);
+                            Citas.mostrarCitas(citasArray, medicosArray);
                             break;
                         default:
                             JOptionPane.showMessageDialog(null, "¡Hasta luego!");
