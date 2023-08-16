@@ -262,6 +262,7 @@ public class Citas {
                 break;
             }
         }
+        
      // mes el dia y la hora
       String[] months = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
                           "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};    
