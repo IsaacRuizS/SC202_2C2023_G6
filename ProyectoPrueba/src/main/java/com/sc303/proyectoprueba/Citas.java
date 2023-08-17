@@ -280,40 +280,36 @@ public class Citas {
         }
         month += 1;
         
-      int dia = Integer.parseInt(JOptionPane.showInputDialog("Digite el día para la devolución de la cita"));
-      boolean diaValido = false;
-      while (!diaValido) {
-      String input = JOptionPane.showInputDialog("Digite el día para la devolución");
-      try {
-      dia = Integer.parseInt(input);
-      if (dia >= 1 && dia <= 31) { // Cambia 31 por el número máximo de días en el mes
-            diaValido = true;
-        } else {
-            JOptionPane.showMessageDialog(null, "Por favor, ingrese un día válido (entre 1 y 31).");
+        int dia =-1;
+        boolean diaValido = false;
+        while (!diaValido) {
+            dia = Integer.parseInt(JOptionPane.showInputDialog("Digite el día para la devolución de la cita"));
+            try {
+                if (dia >= 1 && dia <= 31) { // Cambia 31 por el número máximo de días en el mes
+                    diaValido = true;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Por favor, ingrese un día válido.");
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Por favor, ingrese un valor numérico válido.");
+            }
         }
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null, "Por favor, ingrese un valor numérico válido.");
-    }
-}
      //devolver cita 
         if(idMedicoEliminar != -1){
             String citasEncontradas="";
             int idEliminar = -1;
             for (Citas cita : citasArray) {
                 if(cita != null){
-                    if (cita.getNombreCliente().equals(nombreClienteEliminar)&&cita.getIdMedico() == idMedicoEliminar ) {
+                    if (cita.getNombreCliente().equals(nombreClienteEliminar)&&cita.getIdMedico() == idMedicoEliminar && cita.getDia() == dia && cita.getMes()== month) {
                         citasEncontradas += "Id: "+ cita.getId() +", Cliente: " + cita.getNombreCliente() + ", Fecha: " + cita.getDia() + "/" + cita.getMes() +"/23\n" ;
+                        idEliminar =  cita.getId();
                     }
                 }
             }
-            if(!"".equals(citasEncontradas)){
-                idEliminar = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el id a eliminar: \n"+ citasEncontradas));
-            }else{
-                JOptionPane.showMessageDialog(null, "No hay citas registradas al cliente insertado.");
-                ProyectoPrueba.menuSelection();
-            }
-            if (idEliminar != -1) {
-                // Crear un nuevo array para almacenar las citas restantes después de la eliminación
+            
+            if(!"".equals(citasEncontradas) && idEliminar != -1){
+                JOptionPane.showMessageDialog(null, "Se elimino la cita: "+citasEncontradas);
+                 // Crear un nuevo array para almacenar las citas restantes después de la eliminación
                 Citas[] citasActualizadas = new Citas[citasArray.length - 1];
                 int nuevoIndice = 0;
 
@@ -330,15 +326,13 @@ public class Citas {
                 citasArray = citasActualizadas;
                 JOptionPane.showMessageDialog(null, "Ha devuelto la cita con exito");
                 return citasArray;
-                //ProyectoPrueba.menuSelection();
             }else{
-                JOptionPane.showMessageDialog(null, "Id Incorrecto.");
+                JOptionPane.showMessageDialog(null, "No hay citas encontradas.");
+                ProyectoPrueba.menuSelection();
             }
-            
         }else{
             JOptionPane.showMessageDialog(null, "Id del medico no encontrado");
         }
-        
         return citasArray;
     }
   
