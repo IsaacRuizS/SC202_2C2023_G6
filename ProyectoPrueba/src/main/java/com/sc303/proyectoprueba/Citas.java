@@ -253,6 +253,7 @@ public class Citas {
     
     public static Citas[] devolucionCita(Citas[] citasArray, Medico[] medicosArray){
         String nombreClienteEliminar = JOptionPane.showInputDialog("Digite el nombre del cliente que desea realizar la devolucion de la cita");
+        Medico.mostrarMedico(medicosArray);
         String nombreMedicoEliminar = JOptionPane.showInputDialog("Digite el nombre del medico que desea realizar la devolucion de la cita");
      //buscar el nombre del medico dentro de medicos array y obtener el idmedico de medicos array
         int idMedicoEliminar = -1;
