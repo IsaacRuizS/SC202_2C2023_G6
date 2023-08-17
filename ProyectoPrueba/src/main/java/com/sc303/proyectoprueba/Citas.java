@@ -1,6 +1,7 @@
 package com.sc303.proyectoprueba;
 
 import java.time.YearMonth;
+import java.time.LocalDate;
 import javax.swing.JOptionPane;
 
 public class Citas {
@@ -173,7 +174,7 @@ public class Citas {
                     //llamar a una nueva funcion y validar si es fin de semana o no.
 
                     //Se debe manejar un precio entre semana de 25000 colones la hora y fines de semana de 40000 colones la hora. A ese precio se le debe sumar el IVA del 13%. 
-
+                    if(!"".equals(nombreCliente) && !"".equals(telefonoCliente) ){
                     nuevaCita.setCobro(cobro);
                     nuevaCita.setDia(diaSeleccionado);
                     nuevaCita.setMes(mesSeleccionada);
@@ -192,6 +193,10 @@ public class Citas {
                     }
                     JOptionPane.showMessageDialog(null, "Cita reservada con éxito");
                     ProyectoPrueba.menuSelection();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Nombre o telefono vacio");
+                        ProyectoPrueba.menuSelection();
+                    }
                 }
             }else {
                 JOptionPane.showMessageDialog(null, "Lo siento, esa cita no está disponible.");
@@ -199,42 +204,47 @@ public class Citas {
             }
 
         } else {
-            JOptionPane.showMessageDialog(null, "Lo siento, formato incorrecto.");
+            JOptionPane.showMessageDialog(null, "Lo siento, formato incorrecto. Revisa bien las fechas ingresadas");
             ProyectoPrueba.menuSelection();
         }
     }
 
     public static void mostrarCitas(Citas[] citasArray, Medico[] medicoArray) {
+        String[] meses = {
+            "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", 
+            "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+        };
+
         StringBuilder citasText = new StringBuilder();
         for (Citas cita : citasArray) {
-            if (cita != null) {
-                citasText.append("Id: ").append(cita.getId()).append("\n");
-                citasText.append("Cliente: ").append(cita.getNombreCliente()).append("\n");
-                citasText.append("Teléfono: ").append(cita.getTelefonoCliente()).append("\n");
-                citasText.append("Día: ").append(cita.getDia()).append("\n");
-                citasText.append("Mes: ").append(cita.getMes()).append("\n");
-                citasText.append("Servicio: ").append(cita.getServicio()).append("\n");
-                citasText.append("Hora: ").append(cita.getHoras()).append("\n");
-                citasText.append("Duración: ").append(cita.getCantidadHoras()).append(" horas").append("\n");
-                 for(Medico medico : medicoArray){
-                    if(medico!= null){
-                        if(cita.getIdMedico() == medico.getIdMedico()){
-                            citasText.append("Medico: ").append(medico.getNombre()).append("\n");
-                        }
+        if (cita != null) {
+            citasText.append("Id: ").append(cita.getId()).append("\n");
+            citasText.append("Cliente: ").append(cita.getNombreCliente()).append("\n");
+            citasText.append("Teléfono: ").append(cita.getTelefonoCliente()).append("\n");
+            citasText.append("Día: ").append(cita.getDia()).append("\n");
+            citasText.append("Mes: ").append(meses[cita.getMes() - 1]).append("\n"); // Restamos 1 para que el índice coincida
+            citasText.append("Servicio: ").append(cita.getServicio()).append("\n");
+            citasText.append("Hora: ").append(cita.getHoras()).append("\n");
+            citasText.append("Duración: ").append(cita.getCantidadHoras()).append(" horas").append("\n");
+            for(Medico medico : medicoArray){
+                if(medico!= null){
+                    if(cita.getIdMedico() == medico.getIdMedico()){
+                        citasText.append("Medico: ").append(medico.getNombre()).append("\n");
                     }
                 }
-                citasText.append("Cobro: ").append(cita.getCobro()).append("\n");
-                citasText.append("----------------------------------------\n");
             }
-           
-        }
-        if (citasText.length() == 0) {
-            citasText.append("No hay citas registradas.");
-        }
+            citasText.append("Cobro: ").append(cita.getCobro()).append("\n");
+            citasText.append("----------------------------------------\n");
+         }
+     }
 
+     if (citasText.length() == 0) {
+         citasText.append("No hay citas registradas.");
+    }
         JOptionPane.showMessageDialog(null, citasText.toString());
         ProyectoPrueba.menuSelection();
     }
+
     
     public static Citas[] devolucionCita(Citas[] citasArray){
         String nombreClienteEliminar = JOptionPane.showInputDialog("Digite el nombre del cliente que desea realizar la devolucion de la cita");
@@ -385,13 +395,21 @@ public class Citas {
         return true; 
     }
 
-     public static boolean validarDiaMes(int dia, int mes, int anio) {
+    public static boolean validarDiaMes(int dia, int mes, int anio) {
         YearMonth yearMonthObject = YearMonth.of(anio, mes);
+        LocalDate today = LocalDate.now();
+
+        if (anio < today.getYear() || 
+            (anio == today.getYear() && mes < today.getMonthValue()) ||
+            (anio == today.getYear() && mes == today.getMonthValue() && dia < today.getDayOfMonth())) {
+            return false; // La fecha es menor que la fecha actual
+        }
 
         if (dia >= 1 && dia <= yearMonthObject.lengthOfMonth()) {
-            return true;
+            return true; // La fecha es válida y mayor o igual que la fecha actual
         }
-        return false;
+
+        return false; // La fecha no es válida
     }
     
 }

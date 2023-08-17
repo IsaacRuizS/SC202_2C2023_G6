@@ -15,7 +15,7 @@ public class Calendario {
         int[] daysPerMonth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
         
         String seleccion = (String) JOptionPane.showInputDialog(null, "Selecciona una opción", "Menú desplegable",
-                JOptionPane.QUESTION_MESSAGE, null, months, months[0]);
+                JOptionPane.QUESTION_MESSAGE, null, months, months[7]);
         
         // Obtener la posición del mes seleccionado
         int month = -1;
