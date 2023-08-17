@@ -13,6 +13,10 @@ public class Calendario {
                           "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};    
         //Ultimo dia de cada mes del 2023
         int[] daysPerMonth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        String mesSeleccionado = (String) JOptionPane.showInputDialog(null, "Selecciona un mes:",
+                "Calendario", JOptionPane.QUESTION_MESSAGE, null, opcionesEspecialidad, opcionesEspecialidad[0]);
+        
+    
         
         String seleccion = (String) JOptionPane.showInputDialog(null, "Selecciona una opción", "Menú desplegable",
                 JOptionPane.QUESTION_MESSAGE, null, months, months[7]);
