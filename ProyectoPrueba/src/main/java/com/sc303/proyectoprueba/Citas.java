@@ -212,6 +212,7 @@ public class Citas {
                 citasText.append("Cliente: ").append(cita.getNombreCliente()).append("\n");
                 citasText.append("Teléfono: ").append(cita.getTelefonoCliente()).append("\n");
                 citasText.append("Día: ").append(cita.getDia()).append("\n");
+                citasText.append("Mes: ").append(cita.getMes()).append("\n");
                 citasText.append("Servicio: ").append(cita.getServicio()).append("\n");
                 citasText.append("Hora: ").append(cita.getHoras()).append("\n");
                 citasText.append("Duración: ").append(cita.getCantidadHoras()).append(" horas").append("\n");
