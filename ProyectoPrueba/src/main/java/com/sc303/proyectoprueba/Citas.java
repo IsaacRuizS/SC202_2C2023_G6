@@ -301,7 +301,7 @@ public class Citas {
             for (Citas cita : citasArray) {
                 if(cita != null){
                     if (cita.getNombreCliente().equals(nombreClienteEliminar)&&cita.getIdMedico() == idMedicoEliminar && cita.getDia() == dia && cita.getMes()== month) {
-                        citasEncontradas += "Id: "+ cita.getId() +", Cliente: " + cita.getNombreCliente() + ", Fecha: " + cita.getDia() + "/" + cita.getMes() +"/23\n" ;
+                        citasEncontradas += "Id: "+ cita.getId() +", Cliente: " + cita.getNombreCliente() +", Especialidad: "+ cita.getServicio() + ", Fecha: " + cita.getDia() + "/" + cita.getMes() +"/23\n" ;
                         idEliminar =  cita.getId();
                     }
                 }
