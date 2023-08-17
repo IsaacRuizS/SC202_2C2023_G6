@@ -177,7 +177,7 @@ public class Medico {
             Integer horaSeleccionada = (Integer) JOptionPane.showInputDialog(null, "Selecciona una nueva hora de almuerzo para el médico:",
                    "Actualizar médico", JOptionPane.QUESTION_MESSAGE, null, horas, medico.getHoraAlmuerzo());
             medico.setHoraAlmuerzo(horaSeleccionada);
-            medico.setIdMedico(contador);
+            medico.setIdMedico(idMedico);
             medico.setEstado(true);
             if (contador != 6) {
                 listaMedicos[contador] = medico;

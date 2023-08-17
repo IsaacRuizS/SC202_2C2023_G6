@@ -361,27 +361,39 @@ public class Citas {
             String tablaHTML = "<html><body><table border='1'>";
             tablaHTML += "<tr><th>Hora</th><th>Paciente</th><th>Teléfono</th></tr>";
 
-            for (Citas cita : citasArray) {
-                if (cita != null && cita.getDia() == diaSeleccionado && cita.getMes() == mesSeleccionada && cita.getIdMedico() == idMedico) {
-                    tablaHTML += "<tr>";
-                    for (int hora = 8; hora <= 17; hora++) {
-                        tablaHTML += "<td>" + hora + ":00 - " + (hora + cita.getCantidadHoras()) + ":00</td>";
+            for (int hora = 8; hora <= 17; hora++) {
+                tablaHTML += "<tr>";
+
+                boolean citaEnHora = false; // Variable para verificar si hay una cita en la hora actual
+
+                for (Citas cita : citasArray) {
+                    if (cita != null && cita.getDia() == diaSeleccionado && cita.getMes() == mesSeleccionada && cita.getIdMedico() == idMedico) {
                         if (hora == cita.getHoras() || (hora >= cita.getHoras() && hora < cita.getHoras() + cita.getCantidadHoras())) {
                             ganancias += cita.getCobro();
+                            tablaHTML += "<td>" + hora + ":00 - " + (hora + cita.getCantidadHoras()) + ":00</td>";
                             tablaHTML += "<td>" + cita.getNombreCliente() + "</td>";
                             tablaHTML += "<td>" + cita.getTelefonoCliente() + "</td>";
-                        } else if(hora == horaAlmuerzo){
-                            tablaHTML += "<td colspan='2'>— Almuerzo ––</td>";
+                            citaEnHora = true;
+                            break; // Salir del bucle de citas, ya que encontramos una cita para esta hora
                         }
-                        else {
-                            tablaHTML += "<td colspan='2'>— VACIO ––</td>";
-                        }
-                        tablaHTML += "</tr>";
                     }
                 }
+
+                if (!citaEnHora) {
+                    if (hora == horaAlmuerzo) {
+                        tablaHTML += "<td>" + hora + ":00 - " + (hora + 1) + ":00</td>";
+                        tablaHTML += "<td colspan='2'>— Almuerzo —</td>";
+                    } else {
+                        tablaHTML += "<td>" + hora + ":00 - " + (hora + 1) + ":00</td>";
+                        tablaHTML += "<td colspan='2'>— VACIO —</td>";
+                    }
+                }
+
+                tablaHTML += "</tr>";
             }
 
             tablaHTML += "</table></body></html>";
+
 
             // Mostrar la tabla en un cuadro de diálogo
             JOptionPane.showMessageDialog(null, tablaHTML, "Agenda del Médico", JOptionPane.PLAIN_MESSAGE);

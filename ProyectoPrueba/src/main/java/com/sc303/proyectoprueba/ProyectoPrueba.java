@@ -16,9 +16,9 @@ public class ProyectoPrueba {
         medicosArray[0]=medico1;
         medicosArray[1]=medico2;
         medicosArray[2]=medico3;
-        Citas cita1 = new Citas(1,"Alfonso","43245243",1,1,"Medicina General",8,3,0,0);
-        Citas cita2 = new Citas(1,"Alfonso","43245243",1,1,"Medicina General",8,2,0,1);
-        Citas cita3 = new Citas(1,"Alfonso","43245243",1,1,"Medicina General",8,1,0,2);
+        Citas cita1 = new Citas(1,"Alfonso","435243",1,1,"Medicina General",8,3,0,0);
+        Citas cita2 = new Citas(1,"Andres","432443",1,1,"Medicina General",9,3,0,1);
+        Citas cita3 = new Citas(1,"Victor","4243",1,1,"Medicina General",11,3,0,2);
         citasArray[0]=cita1;
         citasArray[1]=cita2;
         citasArray[2]=cita3;
