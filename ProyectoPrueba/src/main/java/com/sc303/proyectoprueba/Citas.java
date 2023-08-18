@@ -2,7 +2,10 @@ package com.sc303.proyectoprueba;
 
 import java.time.YearMonth;
 import java.time.LocalDate;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextPane;
 
 public class Citas {
     //atributos
@@ -170,12 +173,20 @@ public class Citas {
                 }else{
                     // Calcular el cobro según el tipo de servicio y día de la semana
                     double cobro=0;
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(2023, mesSeleccionada, diaSeleccionado); // Los meses en Calendar van de 0 a 11
 
+                    int diaSemana = calendar.get(Calendar.DAY_OF_WEEK);
+                    if(diaSemana == Calendar.SUNDAY || diaSemana == Calendar.SATURDAY){
+                        cobro = 25000 * 1.13;
+                    }else{
+                        cobro = 40000 * 1.13;
+                    }
                     //llamar a una nueva funcion y validar si es fin de semana o no.
 
                     //Se debe manejar un precio entre semana de 25000 colones la hora y fines de semana de 40000 colones la hora. A ese precio se le debe sumar el IVA del 13%. 
                     if(!"".equals(nombreCliente) && !"".equals(telefonoCliente) ){
-                    nuevaCita.setCobro(cobro);
+                    nuevaCita.setCobro(Math.round(cobro));
                     nuevaCita.setDia(diaSeleccionado);
                     nuevaCita.setMes(mesSeleccionada);
                     nuevaCita.setHoras(horaSeleccionada);
@@ -209,40 +220,86 @@ public class Citas {
         }
     }
 
-    public static void mostrarCitas(Citas[] citasArray, Medico[] medicoArray) {
+   public static void mostrarCitas(Citas[] citasArray, Medico[] medicoArray) {
         String[] meses = {
             "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", 
             "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
         };
 
-        StringBuilder citasText = new StringBuilder();
-        for (Citas cita : citasArray) {
-        if (cita != null) {
-            citasText.append("Id: ").append(cita.getId()).append("\n");
-            citasText.append("Cliente: ").append(cita.getNombreCliente()).append("\n");
-            citasText.append("Teléfono: ").append(cita.getTelefonoCliente()).append("\n");
-            citasText.append("Día: ").append(cita.getDia()).append("\n");
-            citasText.append("Mes: ").append(meses[cita.getMes() - 1]).append("\n"); // Restamos 1 para que el índice coincida
-            citasText.append("Servicio: ").append(cita.getServicio()).append("\n");
-            citasText.append("Hora: ").append(cita.getHoras()).append("\n");
-            citasText.append("Duración: ").append(cita.getCantidadHoras()).append(" horas").append("\n");
-            for(Medico medico : medicoArray){
-                if(medico!= null){
-                    if(cita.getIdMedico() == medico.getIdMedico()){
-                        citasText.append("Medico: ").append(medico.getNombre()).append("\n");
+        int totalCitas = 0;
+        for(int i = 0;  i < citasArray.length; i++){
+            if(citasArray[i] != null){
+                totalCitas+=1;
+            }
+        }
+        int paginas = (totalCitas + 4 - 1) / 4;
+
+        int paginaActual = 1;
+
+        while (true) {
+            int inicio = (paginaActual - 1) * 4;
+            int fin = Math.min(inicio + 4, totalCitas);
+
+            StringBuilder citasText = new StringBuilder();
+
+            for (int i = inicio; i < fin; i++) {
+                Citas cita = citasArray[i];
+                if (cita != null) {
+                    citasText.append("Id: ").append(cita.getId()).append("\n");
+                    citasText.append("Cliente: ").append(cita.getNombreCliente()).append("\n");
+                    citasText.append("Teléfono: ").append(cita.getTelefonoCliente()).append("\n");
+                    citasText.append("Día: ").append(cita.getDia()).append("\n");
+                    citasText.append("Mes: ").append(meses[cita.getMes() - 1]).append("\n");
+                    citasText.append("Servicio: ").append(cita.getServicio()).append("\n");
+                    citasText.append("Hora: ").append(cita.getHoras()).append("\n");
+                    citasText.append("Duración: ").append(cita.getCantidadHoras()).append(" horas").append("\n");
+
+                    for (Medico medico : medicoArray) {
+                        if (medico != null) {
+                            if (cita.getIdMedico() == medico.getIdMedico()) {
+                                citasText.append("Médico: ").append(medico.getNombre()).append("\n");
+                            }
+                        }
                     }
+
+                    citasText.append("Cobro: ").append(cita.getCobro()).append("\n");
+                    citasText.append("----------------------------------------\n");
                 }
             }
-            citasText.append("Cobro: ").append(cita.getCobro()).append("\n");
-            citasText.append("----------------------------------------\n");
-         }
-     }
 
-     if (citasText.length() == 0) {
-         citasText.append("No hay citas registradas.");
-    }
-        JOptionPane.showMessageDialog(null, citasText.toString());
-        ProyectoPrueba.menuSelection();
+            if (citasText.length() == 0) {
+                citasText.append("No hay más citas para mostrar.\n");
+                ProyectoPrueba.menuSelection();
+                break;
+            }
+
+            citasText.append("Página ").append(paginaActual).append(" de ").append(paginas);
+
+            String[] options = {"Siguiente Página", "Salir"};
+            int choice = JOptionPane.showOptionDialog(
+                    null,
+                    citasText.toString(),
+                    "Citas",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    options,
+                    options[0]
+            );
+
+            if (choice == 0) {
+                if (paginaActual < paginas) {
+                    paginaActual++;
+                } else {
+                    JOptionPane.showMessageDialog(null, "No hay más páginas.");
+                    ProyectoPrueba.menuSelection();
+                    break;
+                }
+            } else if (choice == 1) {
+                ProyectoPrueba.menuSelection();
+                break;
+            }
+        }
     }
 
     
